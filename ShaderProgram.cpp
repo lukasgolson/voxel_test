@@ -41,7 +41,6 @@ GLuint ShaderProgram::CompileShader(GLenum shaderType, const std::string &shader
     glShaderSource(shader, 1, &shaderSource, nullptr);
     glCompileShader(shader);
 
-    // Check for shader compilation errors (you can add error handling here)
     GLint success;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
     if (!success) {
@@ -50,13 +49,7 @@ GLuint ShaderProgram::CompileShader(GLenum shaderType, const std::string &shader
         std::vector<GLchar> log(logLength);
         glGetShaderInfoLog(shader, logLength, nullptr, log.data());
 
-
-
-        // Print the error log to the console using std::cerr
-        std::cerr << "Shader compilation failed:" << std::endl;
-        std::cerr << log.data() << std::endl;
-
-        return 0;
+        throw std::runtime_error("Shader compilation failed: " + std::string(log.data()));
     }
 
     return shader;
