@@ -12,7 +12,7 @@ ShaderProgram::ShaderProgram(const std::string &shaderDir, const std::string &sh
 ShaderProgram::~ShaderProgram() = default;
 
 
-void ShaderProgram::Refresh() { SetUniforms(); }
+void ShaderProgram::Refresh() { this->SetUniforms(); }
 
 void ShaderProgram::SetUniforms() {
 
