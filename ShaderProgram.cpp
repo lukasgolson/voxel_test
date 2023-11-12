@@ -30,13 +30,17 @@ void ShaderProgram::Update() {
 std::string ShaderProgram::LoadShaderFile(const std::string &filePath) {
     std::string shaderCode;
     std::ifstream shaderFile(filePath);
-    if (shaderFile.is_open()) {
-        std::string line;
-        while (std::getline(shaderFile, line)) {
-            shaderCode += line + "\n";
-        }
-        shaderFile.close();
+
+    if (!shaderFile.is_open()) {
+        throw std::runtime_error("Failed to open shader file: " + filePath);
     }
+
+    std::string line;
+    while (std::getline(shaderFile, line)) {
+        shaderCode += line + "\n";
+    }
+
+    shaderFile.close();
     return shaderCode;
 }
 
