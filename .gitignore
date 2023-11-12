@@ -4,6 +4,8 @@ bin/
 lib/
 CMakeFiles/
 CMakeScripts/
+cmake-build-debug/
+cmake-build-release/
 
 # Ignore CMake generated files
 CMakeCache.txt
