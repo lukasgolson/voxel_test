@@ -5,7 +5,9 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(main main.cpp
         ShaderProgram.cpp
-        ShaderProgram.h)
+        ShaderProgram.h
+        camera.cpp
+        camera.h)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glfw)

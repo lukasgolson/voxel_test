@@ -24,6 +24,8 @@ private:
     static std::string LoadShaderFile(const std::string &filePath);
 
     static GLuint CompileShader(GLenum shaderType, const std::string &shaderCode);
+
+    GLuint program;
 };
 
 

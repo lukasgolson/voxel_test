@@ -2,6 +2,7 @@
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "ShaderProgram.h"
 
 void error_callback(int error, const char* description)
 {
@@ -36,9 +37,13 @@ int main() {
     glfwSetKeyCallback(window, key_callback);
 
 
+    ShaderProgram* sp = new ShaderProgram("shaders", "chunk");
+
     while (!glfwWindowShouldClose(window)) {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
+
+        sp->Refresh();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

@@ -5,14 +5,19 @@
 
 
 ShaderProgram::ShaderProgram(const std::string &shaderDir, const std::string &shaderName) {
-    auto program = ShaderProgram::LoadShaders(shaderDir, shaderName);
-
+    std::printf("Loading shader %s from %s\n", shaderName.c_str(), shaderDir.c_str());
+    this->program = ShaderProgram::LoadShaders(shaderDir, shaderName);
 }
 
-ShaderProgram::~ShaderProgram() = default;
+ShaderProgram::~ShaderProgram() {
+    glDeleteProgram(this->program);
+}
 
 
-void ShaderProgram::Refresh() { this->SetUniforms(); }
+void ShaderProgram::Refresh() {
+    glUseProgram(this->program);
+    this->SetUniforms();
+}
 
 void ShaderProgram::SetUniforms() {
 
