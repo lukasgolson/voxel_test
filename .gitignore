@@ -1,0 +1,53 @@
+# Ignore build artifacts
+build/
+bin/
+lib/
+CMakeFiles/
+CMakeScripts/
+
+# Ignore CMake generated files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Makefile
+cmake_install.cmake
+CMakeSettings.json
+
+# Ignore vcpkg folders
+vcpkg_installed/
+vcpkg_manifest.txt
+
+# Ignore Ninja build output directory
+build.ninja
+
+# Ignore CLion specific files and folders
+.idea/
+.cmake/
+compile_commands.json
+
+# Ignore Visual Studio Code specific files (if you're using VSCode)
+.vscode/
+
+# Ignore compiled executables and libraries
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore log and temporary files
+*.log
+*.swp
+*~
+
+# Ignore user-specific files
+CMakeUserPresets.json
+CMakeUserPresets/*
+CMakeUserPresets/
+
+# Ignore system-specific files
+CMakeUserPresets.json
+CMakeUserPresets/*
+CMakeUserPresets/
+
+# Ignore macOS system files
+.DS_Store
