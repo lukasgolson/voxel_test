@@ -12,7 +12,11 @@ add_executable(main main.cpp
         src/voxelEngine.cpp
         src/voxelEngine.h
         src/FlyingCamera.cpp
-        src/FlyingCamera.h)
+        src/FlyingCamera.h
+        src/meshes/BaseMesh.cpp
+        src/meshes/BaseMesh.h
+        src/meshes/QuadMesh.cpp
+        src/meshes/QuadMesh.h)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glfw)
