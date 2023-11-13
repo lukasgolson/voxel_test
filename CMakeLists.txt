@@ -5,12 +5,14 @@ set(CMAKE_CXX_STANDARD 14)
 
 
 add_executable(main main.cpp
-        ShaderProgram.cpp
-        ShaderProgram.h
-        Camera.cpp
-        Camera.h
-        voxelEngine.cpp
-        voxelEngine.h)
+        src/ShaderProgram.cpp
+        src/ShaderProgram.h
+        src/Camera.cpp
+        src/Camera.h
+        src/voxelEngine.cpp
+        src/voxelEngine.h
+        src/FlyingCamera.cpp
+        src/FlyingCamera.h)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glfw)

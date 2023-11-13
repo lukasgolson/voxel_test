@@ -2,11 +2,13 @@
 #include <vector>
 #include <iostream>
 #include "ShaderProgram.h"
+#include "Camera.h"
+#include <glm/gtc/type_ptr.hpp>
 
-
-ShaderProgram::ShaderProgram(const std::string &shaderDir, const std::string &shaderName) {
+ShaderProgram::ShaderProgram(const std::string &shaderDir, const std::string &shaderName, Camera *camera) {
     std::printf("Loading shader %s from %s\n", shaderName.c_str(), shaderDir.c_str());
     this->program = ShaderProgram::LoadShaders(shaderDir, shaderName);
+    this->camera = camera;
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -20,11 +22,28 @@ void ShaderProgram::Refresh() {
 }
 
 void ShaderProgram::SetUniforms() {
+    auto viewLocation = this->GetUniformLocation("view");
+    auto viewMatrix = this->camera->GetViewMatrix();
+
+    auto modelLocation = this->GetUniformLocation("model");
+    auto modelMatrix = glm::mat4{1.0f};
+
+    auto projectionLocation = this->GetUniformLocation("projection");
+    auto projectionMatrix = this->camera->GetProjectionMatrix();
+
+    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 }
 
 void ShaderProgram::Update() {
 
+}
+
+
+auto ShaderProgram::GetUniformLocation(const std::string &name) const -> GLint {
+    return glGetUniformLocation(this->program, name.c_str());
 }
 
 std::string ShaderProgram::LoadShaderFile(const std::string &filePath) {
@@ -88,3 +107,5 @@ GLuint ShaderProgram::LoadShaders(const std::string &shaderDir, const std::strin
 
     return program;
 }
+
+

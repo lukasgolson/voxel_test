@@ -10,6 +10,9 @@ class voxelEngine {
     Camera *camera;
     ShaderProgram *shaderProgram;
 
+
+
+
 };
 
 

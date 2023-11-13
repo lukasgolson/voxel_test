@@ -4,11 +4,12 @@
 
 #include <string>
 #include "glad/gl.h"
+#include "Camera.h"
 
 
 class ShaderProgram {
 public:
-    ShaderProgram(const std::string& shaderDir, const std::string& shaderName);
+    ShaderProgram(const std::string& shaderDir, const std::string& shaderName, Camera *camera);
     ~ShaderProgram();
 
 
@@ -26,6 +27,9 @@ private:
     static GLuint CompileShader(GLenum shaderType, const std::string &shaderCode);
 
     GLuint program;
+    Camera *camera;
+
+    GLint GetUniformLocation(const std::string &name) const;
 };
 
 
