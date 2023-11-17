@@ -21,7 +21,12 @@ public:
 
     virtual GLuint GetVertexArrayObject();
 
+    virtual void SetVertexAttributes() = 0;
+
+public:
     virtual void Render();
+
+
 };
 
 

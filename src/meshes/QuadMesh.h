@@ -10,6 +10,14 @@
 
 class QuadMesh : public BaseMesh {
 
+    std::vector<float> GetVertexData() override;
+
+    GLuint GetVertexArrayObject() override;
+
+    void SetVertexAttributes() override;
+
+public:
+    void Render() override;
 };
 
 

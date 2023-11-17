@@ -5,6 +5,7 @@
 #include <iostream>
 #include "src/ShaderProgram.h"
 #include "src/Camera.h"
+#include "src/Scene.h"
 
 Camera *cam;
 
@@ -61,6 +62,7 @@ int main() {
     glfwSetKeyCallback(window, key_callback);
 
 
+    auto *scene = new Scene();
     cam = new Camera(glm::vec2{640 * 2, 480 * 2}, glm::vec3{0.0f, 0.0f, -1.0f}, -90.0f, 0.0f);
     auto *sp = new ShaderProgram("shaders", "test", cam);
 
@@ -76,17 +78,16 @@ int main() {
         glClearColor(0.15f, 0.10f, 0.10f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        // update camera
         cam->update();
 
         // Use the shader program
         sp->Refresh();
 
+        // Render the scene
+        scene->Render();
 
-        // Draw the triangle
-        glDrawArrays(GL_TRIANGLES, 0, 3);
 
-        // Unbind the VAO
-        glBindVertexArray(0);
 
         // Swap front and back buffers
         glfwSwapBuffers(window);
@@ -98,3 +99,4 @@ int main() {
     glfwTerminate();
     return 0;
 }
+

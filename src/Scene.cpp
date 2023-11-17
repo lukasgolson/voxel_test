@@ -1,0 +1,19 @@
+//
+// Created by lukas on 2023-11-16.
+//
+
+#include "Scene.h"
+#include "meshes/QuadMesh.h"
+
+Scene::Scene() {
+    this->quad = new QuadMesh();
+
+}
+
+void Scene::Update() {
+
+}
+
+void Scene::Render() {
+this->quad->Render();
+}

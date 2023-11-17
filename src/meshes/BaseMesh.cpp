@@ -22,9 +22,9 @@ GLuint BaseMesh::GetVertexArrayObject() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(float), vertexData.data(), GL_STATIC_DRAW);
 
-    // Specify vertex attribute pointers
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+
+    SetVertexAttributes();
+
 
     // Unbind VAO and VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -34,6 +34,9 @@ GLuint BaseMesh::GetVertexArrayObject() {
 }
 
 void BaseMesh::Render() {
+
+
+
     // Bind the Vertex Array Object (VAO) for rendering
     GLuint VAO = GetVertexArrayObject();
     glBindVertexArray(VAO);
