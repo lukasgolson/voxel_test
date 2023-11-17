@@ -24,6 +24,7 @@ Camera::Camera(glm::vec2 window_size, glm::vec3 position, float yaw, float pitch
 
 
 void Camera::update() {
+    this->updateRelativeVectors();
     this->updateViewMatrix();
 }
 
@@ -44,12 +45,10 @@ void Camera::updateRelativeVectors() {
 void Camera::updatePitch(float delta_pitch) {
     this->pitch += delta_pitch;
     this->pitch = glm::clamp(this->pitch, -89.0f, 89.0f);
-    this->updateRelativeVectors();
 }
 
 void Camera::updateYaw(float delta_yaw) {
     this->yaw += delta_yaw;
-    this->updateRelativeVectors();
 }
 
 void Camera::updatePosition(glm::vec3 delta_position) {
