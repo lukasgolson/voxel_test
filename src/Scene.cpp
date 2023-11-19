@@ -11,7 +11,7 @@ Scene::Scene(ShaderProgram *shaderProgram) {
 }
 
 void Scene::Update() {
-
+    this->Render();
 }
 
 void Scene::Render() {

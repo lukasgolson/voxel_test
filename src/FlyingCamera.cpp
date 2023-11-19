@@ -2,63 +2,77 @@
 // Created by lukas on 2023-11-12.
 //
 
+#include <cmath>
 #include <iostream>
 #include "FlyingCamera.h"
 
 void FlyingCamera::update(double delta_time) {
-    keyboardInput(0.1 * delta_time);
-    mouseInput();
+    keyboardInput(delta_time);
+    mouseInput(delta_time);
     Camera::update(delta_time);
 
 }
 
-void FlyingCamera::keyboardInput(double velocity){
+void FlyingCamera::keyboardInput(double deltaTime) {
 
-    if (glfwGetKey(this->window, GLFW_KEY_W) == GLFW_PRESS) {
-        updatePosition({velocity, 0.0, 0.0});
-    }
-
-    if (glfwGetKey(this->window, GLFW_KEY_S) == GLFW_PRESS) {
-        updatePosition({-velocity, 0.0, 0.0});
-    }
+    const float speed = 5.0f;
 
     if (glfwGetKey(this->window, GLFW_KEY_A) == GLFW_PRESS) {
-        updatePosition({0.0, 0.0, velocity});
+        updatePosition({-speed * deltaTime, 0.0, 0.0});
     }
 
     if (glfwGetKey(this->window, GLFW_KEY_D) == GLFW_PRESS) {
-        updatePosition({0.0, 0.0, -velocity});
+        updatePosition({speed * deltaTime, 0.0, 0.0});
+    }
+
+    if (glfwGetKey(this->window, GLFW_KEY_W) == GLFW_PRESS) {
+        updatePosition({0.0, 0.0, speed * deltaTime});
+    }
+
+    if (glfwGetKey(this->window, GLFW_KEY_S) == GLFW_PRESS) {
+        updatePosition({0.0, 0.0, -speed * deltaTime});
     }
 
     if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        updatePosition({0.0, velocity, 0.0});
+        updatePosition({0.0, speed * deltaTime, 0.0});
     }
 
     if (glfwGetKey(this->window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-        updatePosition({0.0, -velocity, 0.0});
+        updatePosition({0.0, -speed * deltaTime, 0.0});
     }
 
 }
 
 
+bool firstMouse = true;
 
-void FlyingCamera::mouseInput() {
+void FlyingCamera::mouseInput(double delta_time) {
     double xpos, ypos;
     glfwGetCursorPos(this->window, &xpos, &ypos);
 
-    const float sensitivity = 0.1f; // Inline constant for sensitivity
-    float xoffset = (xpos - this->lastMouseX) * sensitivity;
-    float yoffset = (this->lastMouseY - ypos) * sensitivity;
-
-    this->lastMouseX = xpos;
-    this->lastMouseY = ypos;
-
-    // Considering a minimal threshold for movement
-    if (fabs(xoffset) > 0.001f) {
-        this->updatePitch(xoffset);
+    if (firstMouse) {
+        this->lastMouseX = xpos;
+        this->lastMouseY = ypos;
+        firstMouse = false;
+        return; // Skip this frame to avoid jump in camera orientation
     }
 
-    if (fabs(yoffset) > 0.001f) {
-        this->updateYaw(yoffset);
+    const float sensitivity = 5.0f; // Inline constant for sensitivity
+    float xoffset = (xpos - this->lastMouseX) * sensitivity * delta_time;
+    float yoffset = (this->lastMouseY - ypos) * sensitivity * delta_time;
+
+
+
+
+    if (std::fabs(xoffset) > 0.001f) {
+        this->lastMouseX = xpos;
+        this->updateYaw(xoffset);
+    }
+
+    if (std::fabs(yoffset) > 0.001f) {
+        this->lastMouseY = ypos;
+        this->updatePitch(yoffset);
     }
 }
+
+

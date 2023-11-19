@@ -19,6 +19,8 @@ Camera::Camera(glm::vec3 position, float yaw, float pitch) {
     this->window = glfwGetCurrentContext();
     glfwGetWindowSize(window, &windowX, &windowY);
 
+    std::cout << "Window size: " << windowX << ", " << windowY << std::endl;
+
     float aspect_ratio = (float) windowX / (float) windowY;
 
     auto near_plane = 0.1f;
@@ -55,8 +57,6 @@ void Camera::updateRelativeVectors() {
 void Camera::updatePitch(float delta_pitch) {
     this->pitch += delta_pitch;
     this->pitch = glm::clamp(this->pitch, -89.0f, 89.0f);
-
-    std::cout << "Camera pitch: " << this->pitch << std::endl;
 }
 
 void Camera::updateYaw(float delta_yaw) {
@@ -67,8 +67,6 @@ void Camera::updateYaw(float delta_yaw) {
     } else if (yaw < -180.0f) {
         yaw += 360.0f;
     }
-
-    std::cout << "Camera yaw: " << this->yaw << std::endl;
 }
 
 void Camera::updatePosition(glm::vec3 delta_position) {

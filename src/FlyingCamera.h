@@ -12,15 +12,15 @@
 class FlyingCamera : public Camera {
     void update(double delta_time) override;
 
-    double lastMouseX;
-    double lastMouseY;
-
 public:
     FlyingCamera(glm::vec3 position, float pitch, float yaw) : Camera(position, pitch, yaw) {}
 
-    void keyboardInput(double velocity);
+    void keyboardInput(double deltaTime);
 
-    void mouseInput();
+    void mouseInput(double deltaTime);
+
+    double lastMouseX;
+    double lastMouseY;
 };
 
 
