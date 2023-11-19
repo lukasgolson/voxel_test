@@ -35,8 +35,8 @@ private:
     float yaw;
     float pitch;
 
-    glm::mat4 view_matrix{};
-    glm::mat<4, 4, float> projection_matrix{};
+    glm::mat4 viewMatrix{};
+    glm::mat<4, 4, float> projectionMatrix{};
     glm::vec3 position{};
 
     glm::vec3 up = glm::vec3{0.0f, 1.0f, 0.0f};

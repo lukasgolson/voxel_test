@@ -19,7 +19,9 @@ add_executable(main main.cpp
         src/meshes/QuadMesh.h
         src/Scene.cpp
         src/Scene.h
-        src/Scene.h)
+        src/Scene.h
+        src/meshes/QuadMesh.cpp
+        src/meshes/QuadMesh.h)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glfw)

@@ -5,7 +5,7 @@
 #include "Scene.h"
 #include "meshes/QuadMesh.h"
 
-Scene::Scene() {
+Scene::Scene(ShaderProgram *shaderProgram) {
     this->quad = new QuadMesh();
 
 }
@@ -15,5 +15,5 @@ void Scene::Update() {
 }
 
 void Scene::Render() {
-this->quad->Render();
+    this->quad->Render();
 }

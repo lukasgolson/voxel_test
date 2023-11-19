@@ -1,5 +1,5 @@
 //
-// Created by lukas on 2023-11-13.
+// Created by lukas on 2023-11-18.
 //
 
 #ifndef VOXEL_TEST_QUADMESH_H
@@ -9,15 +9,12 @@
 #include "BaseMesh.h"
 
 class QuadMesh : public BaseMesh {
-
-    std::vector<float> GetVertexData() override;
-
-    GLuint GetVertexArrayObject() override;
-
+protected:
     void SetVertexAttributes() override;
 
 public:
-    void Render() override;
+    QuadMesh();
+    std::vector<float> GetVertexData() override;
 };
 
 

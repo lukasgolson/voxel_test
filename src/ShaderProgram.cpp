@@ -16,29 +16,30 @@ ShaderProgram::~ShaderProgram() {
 }
 
 
-void ShaderProgram::Refresh() {
+void ShaderProgram::Update() {
+    // Set the shader program to use for rendering
     glUseProgram(this->program);
+
+    // Set the uniforms for the shader program / camera matrices
     this->SetUniforms();
 }
 
+
 void ShaderProgram::SetUniforms() {
-    auto viewLocation = this->GetUniformLocation("view");
-    auto viewMatrix = this->camera->GetViewMatrix();
 
-    auto modelLocation = this->GetUniformLocation("model");
-    auto modelMatrix = glm::mat4{1.0f};
-
-    auto projectionLocation = this->GetUniformLocation("projection");
+    auto projectionLocation = this->GetUniformLocation("m_projection");
     auto projectionMatrix = this->camera->GetProjectionMatrix();
 
+    auto viewLocation = this->GetUniformLocation("m_view");
+    auto viewMatrix = this->camera->GetViewMatrix();
+
+    auto modelLocation = this->GetUniformLocation("m_model");
+    auto modelMatrix = glm::mat4{1.0f};
+
+
+    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
     glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-
-}
-
-void ShaderProgram::Update() {
-
 }
 
 
@@ -77,7 +78,7 @@ GLuint ShaderProgram::CompileShader(GLenum shaderType, const std::string &shader
         std::vector<GLchar> log(logLength);
         glGetShaderInfoLog(shader, logLength, nullptr, log.data());
 
-        throw std::runtime_error("Shader compilation failed: " + std::string(log.data()));
+        throw std::runtime_error(std::string(log.data()));
     }
 
     return shader;
@@ -94,18 +95,48 @@ GLuint ShaderProgram::LoadShaders(const std::string &shaderDir, const std::strin
 
 
     GLuint program = glCreateProgram();
-    GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderCode);
-    GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderCode);
 
-    glAttachShader(program, vertexShader);
-    glAttachShader(program, fragmentShader);
+    GLuint vertexShader;
+    GLuint fragmentShader;
+
+    try {
+        std::printf("Compiling vertex shader...\n");
+        vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderCode);
+        glAttachShader(program, vertexShader);
+
+    } catch (std::exception &e) {
+        throw std::runtime_error("Failed to compile vertex shader: " + std::string(e.what()));
+    }
+
+    try {
+        std::printf("Compiling fragment shader...\n");
+        fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderCode);
+        glAttachShader(program, fragmentShader);
+
+    } catch (std::exception &e) {
+        throw std::runtime_error("Failed to compile fragment shader: " + std::string(e.what()));
+    }
+
 
     glLinkProgram(program);
+
+    // Check for shader program linking errors
+    GLint success;
+    glGetProgramiv(program, GL_LINK_STATUS, &success);
+    if (!success) {
+        GLint logLength;
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
+        std::vector<GLchar> log(logLength);
+        glGetProgramInfoLog(program, logLength, nullptr, log.data());
+
+        throw std::runtime_error("Shader program linking failed: " + std::string(log.data()));
+    } else {
+        std::printf("Shader program linking successful for %s shader \n", shaderName.c_str());
+    }
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
+
     return program;
 }
-
-

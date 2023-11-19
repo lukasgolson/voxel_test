@@ -13,13 +13,13 @@ public:
     ~ShaderProgram();
 
 
-    void Refresh();
 
-    void SetUniforms();
 
     void Update();
 
 private:
+    void SetUniforms();
+
     static GLuint LoadShaders(const std::string &shaderDir, const std::string &shaderName);
 
     static std::string LoadShaderFile(const std::string &filePath);
@@ -30,6 +30,7 @@ private:
     Camera *camera;
 
     GLint GetUniformLocation(const std::string &name) const;
+
 };
 
 

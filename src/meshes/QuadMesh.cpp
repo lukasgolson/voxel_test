@@ -1,57 +1,40 @@
 //
-// Created by lukas on 2023-11-13.
+// Created by lukas on 2023-11-18.
 //
 
 #include "QuadMesh.h"
 
 
-std::vector<float> QuadMesh::GetVertexData() {
-
-    std::vector<float> positions = {
-            // positions
-            -0.5f, -0.5f, 0.0f, // bottom left
-            0.5f, -0.5f, 0.0f, // bottom right
-            0.5f, 0.5f, 0.0f, // top right
-            -0.5f, 0.5f, 0.0f, // top left
-    };
-
-    std::vector<float> color = {
-            // colors
-            1.0f, 0.0f, 0.0f, // bottom left
-            0.0f, 1.0f, 0.0f, // bottom right
-            0.0f, 0.0f, 1.0f, // top right
-            1.0f, 1.0f, 0.0f, // top left
-    };
-
-
-    std::vector<float> vertexData;
-    vertexData.reserve(positions.size() + color.size());
-
-    // Interleave position and color data
-    for (size_t i = 0; i < positions.size(); i += 3) {
-        vertexData.insert(vertexData.end(), positions.begin() + i, positions.begin() + i + 3);
-        vertexData.insert(vertexData.end(), color.begin() + i, color.begin() + i + 3);
-    }
-
-    return vertexData;
-
-}
-
-GLuint QuadMesh::GetVertexArrayObject() {
-    return BaseMesh::GetVertexArrayObject();
+QuadMesh::QuadMesh() {
+    // Set up the mesh (VAO, VBO, etc.) using BaseMesh's setup functionality
+    this->vertexCount = 6; // Two triangles, 3 vertices each
+    SetupMesh(6);
 }
 
 void QuadMesh::SetVertexAttributes() {
     // Position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
 
     // Color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) (3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 }
 
-
-void QuadMesh::Render() {
-    BaseMesh::Render();
+std::vector<float> QuadMesh::GetVertexData() {
+    // Vertex data: position (x, y, z) followed by color (r, g, b)
+    return {
+            // Vertex 1: Position, Color
+            -1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
+            // Vertex 2
+            1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+            // Vertex 3
+            1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+            // Vertex 4
+            -1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
+            // Vertex 5
+            1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+            // Vertex 6
+            -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f
+    };
 }

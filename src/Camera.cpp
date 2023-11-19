@@ -14,8 +14,8 @@ Camera::Camera(glm::vec2 window_size, glm::vec3 position, float yaw, float pitch
     auto near_plane = 0.1f;
     auto far_plane = 2000.0f;
 
-    this->projection_matrix = glm::perspective(vertical_fov, aspect_ratio, near_plane, far_plane);
-    this->view_matrix = glm::mat4{0.0f};
+    this->projectionMatrix = glm::perspective(vertical_fov, aspect_ratio, near_plane, far_plane);
+    this->viewMatrix = glm::mat4{1.0f};
 
     this->position = position;
     this->yaw = glm::radians(yaw);
@@ -29,7 +29,7 @@ void Camera::update() {
 }
 
 void Camera::updateViewMatrix() {
-    this->view_matrix = glm::lookAt(this->position, this->position + this->forward, this->up);
+    this->viewMatrix = glm::lookAt(this->position, this->position + this->forward, this->up);
 }
 
 void Camera::updateRelativeVectors() {
@@ -56,18 +56,14 @@ void Camera::updatePosition(glm::vec3 delta_position) {
     this->position += (delta_position.x * this->right);
     this->position += (delta_position.y * this->up);
     this->position += (delta_position.z * this->forward);
-
-    // print position
-    std::cout << "Camera position: " << this->position.x << ", " << this->position.y << ", " << this->position.z
-              << std::endl;
 }
 
 glm::mat<4, 4, float> Camera::GetViewMatrix() const {
-    return this->view_matrix;
+    return this->viewMatrix;
 }
 
 glm::mat<4, 4, float> Camera::GetProjectionMatrix() const {
-    return this->projection_matrix;
+    return this->projectionMatrix;
 }
 
 

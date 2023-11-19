@@ -10,11 +10,17 @@
 
 class Scene {
 public:
-    Scene();
+    Scene(ShaderProgram *shaderProgram);
+
+
+
     void Update();
+
     void Render();
 
-    QuadMesh *quad;
+    BaseMesh *quad;
+    ShaderProgram *shaderProgram;
+
 };
 
 

@@ -4,45 +4,40 @@
 
 #include "BaseMesh.h"
 
-BaseMesh::BaseMesh() {
+BaseMesh::BaseMesh() = default;
 
+BaseMesh::~BaseMesh() {
+    // Clean up the VAO and VBO when the mesh is destroyed
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
 }
 
-GLuint BaseMesh::GetVertexArrayObject() {
+void BaseMesh::SetupMesh(int elementsPerVertex) {
     auto vertexData = GetVertexData();
+    vertexCount = static_cast<GLsizei>(vertexData.size() / elementsPerVertex); // Update this based on your vertex structure
 
-    // Generate Vertex Array Object (VAO)
-    GLuint VAO;
+    // Generate and bind Vertex Array Object (VAO)
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
-    // Generate Vertex Buffer Object (VBO) for vertex data
-    GLuint VBO;
+    // Generate and bind Vertex Buffer Object (VBO)
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(float), vertexData.data(), GL_STATIC_DRAW);
 
-
     SetVertexAttributes();
-
 
     // Unbind VAO and VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-
-    return VAO;
 }
 
 void BaseMesh::Render() {
-
-
-
     // Bind the Vertex Array Object (VAO) for rendering
-    GLuint VAO = GetVertexArrayObject();
     glBindVertexArray(VAO);
 
     // Issue OpenGL draw calls to render the mesh
-    glDrawArrays(GL_TRIANGLES, 0, 3); // Assuming a triangle with 3 vertices
+    glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 
     // Unbind the VAO after rendering
     glBindVertexArray(0);
