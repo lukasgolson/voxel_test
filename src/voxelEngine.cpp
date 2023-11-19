@@ -8,7 +8,7 @@
 #include "Scene.h"
 
 
-voxelEngine::voxelEngine(glm::vec2 window_size) {
+voxelEngine::voxelEngine() {
 
     this->camera = new FlyingCamera(glm::vec3{0.0f, 0.0f, 0.0f}, 0.0f, 0.0f);
     this->shaderProgram = new ShaderProgram("shaders", "quad", camera);

@@ -5,7 +5,7 @@
 #ifndef VOXEL_TEST_CAMERA_H
 #define VOXEL_TEST_CAMERA_H
 
-#include "GlCommon.h"
+#include "OpenGlCommon.h"
 #include <glm/vec3.hpp>
 #include <glm/ext/matrix_float4x4.hpp>
 

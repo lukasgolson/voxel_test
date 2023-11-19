@@ -14,7 +14,7 @@ class voxelEngine {
     Scene *scene;
 
 public:
-    explicit voxelEngine(glm::vec2 window_size);
+    voxelEngine();
     ~voxelEngine() = default;
     void update();
 

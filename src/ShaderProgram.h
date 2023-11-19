@@ -4,7 +4,7 @@
 
 #include <string>
 #include "Camera.h"
-#include "GlCommon.h"
+#include "OpenGlCommon.h"
 
 
 class ShaderProgram {

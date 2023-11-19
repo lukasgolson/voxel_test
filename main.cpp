@@ -1,4 +1,4 @@
-#include "src/GlCommon.h"
+#include "src/OpenGlCommon.h"
 #include <iostream>
 #include "src/voxelEngine.h"
 
@@ -9,6 +9,7 @@ void error_callback(int error, const char *description) {
     fprintf(stderr, "Error: %s\n", description);
 }
 
+bool cursorEnabled = true;
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -21,6 +22,11 @@ GLFWwindow *CreateWindow(glm::vec<2, int> window_size) {
     if (!glfwInit())
         throw std::runtime_error("Failed to initialize GLFW");
 
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
     new_window = glfwCreateWindow(window_size[0], window_size[1], "Voxel Renderer", NULL, NULL);
     if (!new_window) {
         glfwTerminate();
@@ -30,6 +36,8 @@ GLFWwindow *CreateWindow(glm::vec<2, int> window_size) {
 
     glfwMakeContextCurrent(new_window);
     gladLoadGL((GLADloadfunc) glfwGetProcAddress);
+
+
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
@@ -49,7 +57,7 @@ int main() {
     glfwSetKeyCallback(window, key_callback);
 
 
-    auto VoxelEngine = new voxelEngine({resolutionX, resolutionY});
+    auto VoxelEngine = new voxelEngine();
 
 
     while (!glfwWindowShouldClose(window)) {

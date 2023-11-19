@@ -2,7 +2,7 @@
 #include <vector>
 #include <iostream>
 
-#include "GlCommon.h"
+#include "OpenGlCommon.h"
 #include <glm/gtc/type_ptr.hpp>
 #include "ShaderProgram.h"
 #include "Camera.h"

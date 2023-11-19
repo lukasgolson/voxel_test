@@ -6,6 +6,8 @@
 #include <iostream>
 #include "FlyingCamera.h"
 
+bool firstMouse = true;
+
 void FlyingCamera::update(double delta_time) {
     keyboardInput(delta_time);
     mouseInput(delta_time);
@@ -44,7 +46,7 @@ void FlyingCamera::keyboardInput(double deltaTime) {
 }
 
 
-bool firstMouse = true;
+
 
 void FlyingCamera::mouseInput(double delta_time) {
     double xpos, ypos;

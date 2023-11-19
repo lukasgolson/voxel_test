@@ -3,6 +3,11 @@ project(voxel_test)
 
 set(CMAKE_CXX_STANDARD 17)
 
+find_package( OpenGL REQUIRED )
+
+set( GLFW_BUILD_DOCS OFF CACHE BOOL  "GLFW lib only" )
+set( GLFW_INSTALL OFF CACHE BOOL  "GLFW lib only" )
+
 add_definitions(-DGLFW_INCLUDE_NONE)
 
 add_executable(main main.cpp
@@ -23,7 +28,7 @@ add_executable(main main.cpp
         src/Scene.h
         src/meshes/QuadMesh.cpp
         src/meshes/QuadMesh.h
-        src/GlCommon.h)
+        src/OpenGlCommon.h)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glfw)
