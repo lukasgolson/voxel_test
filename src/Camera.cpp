@@ -74,8 +74,6 @@ void Camera::updatePosition(glm::vec3 delta_position) {
     this->position += (delta_position.x * this->right);
     this->position += (delta_position.y * this->up);
     this->position += (delta_position.z * this->forward);
-
-    std::cout << "Camera position: " << this->position.x << ", " << this->position.y << ", " << this->position.z << std::endl;
 }
 
 glm::mat<4, 4, float> Camera::GetViewMatrix() const {
