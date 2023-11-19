@@ -3,6 +3,7 @@ project(voxel_test)
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_definitions(-DGLFW_INCLUDE_NONE)
 
 add_executable(main main.cpp
         src/ShaderProgram.cpp
@@ -21,7 +22,8 @@ add_executable(main main.cpp
         src/Scene.h
         src/Scene.h
         src/meshes/QuadMesh.cpp
-        src/meshes/QuadMesh.h)
+        src/meshes/QuadMesh.h
+        src/GlCommon.h)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glfw)

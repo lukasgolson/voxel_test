@@ -3,13 +3,23 @@
 //
 
 #include "Camera.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
+#include <glm/trigonometric.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
+#include <glm/ext/matrix_transform.hpp>
 
-Camera::Camera(glm::vec2 window_size, glm::vec3 position, float yaw, float pitch) {
+
+Camera::Camera(glm::vec3 position, float yaw, float pitch) {
+
+    int windowX, windowY = 0;
+
     auto vertical_fov = glm::radians(45.0f);
-    auto aspect_ratio = window_size.x / window_size.y;
+
+
+    this->window = glfwGetCurrentContext();
+    glfwGetWindowSize(window, &windowX, &windowY);
+
+    float aspect_ratio = (float) windowX / (float) windowY;
 
     auto near_plane = 0.1f;
     auto far_plane = 2000.0f;
@@ -23,7 +33,7 @@ Camera::Camera(glm::vec2 window_size, glm::vec3 position, float yaw, float pitch
 }
 
 
-void Camera::update() {
+void Camera::update(double delta_time) {
     this->updateRelativeVectors();
     this->updateViewMatrix();
 }
@@ -45,10 +55,20 @@ void Camera::updateRelativeVectors() {
 void Camera::updatePitch(float delta_pitch) {
     this->pitch += delta_pitch;
     this->pitch = glm::clamp(this->pitch, -89.0f, 89.0f);
+
+    std::cout << "Camera pitch: " << this->pitch << std::endl;
 }
 
 void Camera::updateYaw(float delta_yaw) {
     this->yaw += delta_yaw;
+
+    if (yaw > 180.0f) {
+        yaw -= 360.0f;
+    } else if (yaw < -180.0f) {
+        yaw += 360.0f;
+    }
+
+    std::cout << "Camera yaw: " << this->yaw << std::endl;
 }
 
 void Camera::updatePosition(glm::vec3 delta_position) {
@@ -56,6 +76,8 @@ void Camera::updatePosition(glm::vec3 delta_position) {
     this->position += (delta_position.x * this->right);
     this->position += (delta_position.y * this->up);
     this->position += (delta_position.z * this->forward);
+
+    std::cout << "Camera position: " << this->position.x << ", " << this->position.y << ", " << this->position.z << std::endl;
 }
 
 glm::mat<4, 4, float> Camera::GetViewMatrix() const {

@@ -7,7 +7,7 @@
 
 
 #include <vector>
-#include "../ShaderProgram.h"
+#include "glad/gl.h"
 
 class BaseMesh {
 protected:

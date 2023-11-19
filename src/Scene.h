@@ -7,6 +7,7 @@
 
 
 #include "meshes/QuadMesh.h"
+#include "ShaderProgram.h"
 
 class Scene {
 public:

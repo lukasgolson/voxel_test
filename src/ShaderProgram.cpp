@@ -1,9 +1,12 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
+
+#include "GlCommon.h"
+#include <glm/gtc/type_ptr.hpp>
 #include "ShaderProgram.h"
 #include "Camera.h"
-#include <glm/gtc/type_ptr.hpp>
+
 
 ShaderProgram::ShaderProgram(const std::string &shaderDir, const std::string &shaderName, Camera *camera) {
     std::printf("Loading shader %s from %s\n", shaderName.c_str(), shaderDir.c_str());

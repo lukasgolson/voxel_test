@@ -3,8 +3,8 @@
 
 
 #include <string>
-#include "glad/gl.h"
 #include "Camera.h"
+#include "GlCommon.h"
 
 
 class ShaderProgram {

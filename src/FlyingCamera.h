@@ -7,9 +7,20 @@
 
 
 #include "Camera.h"
+#include "voxelEngine.h"
 
 class FlyingCamera : public Camera {
-void update() override;
+    void update(double delta_time) override;
+
+    double lastMouseX;
+    double lastMouseY;
+
+public:
+    FlyingCamera(glm::vec3 position, float pitch, float yaw) : Camera(position, pitch, yaw) {}
+
+    void keyboardInput(double velocity);
+
+    void mouseInput();
 };
 
 
