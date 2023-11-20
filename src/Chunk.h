@@ -4,18 +4,11 @@
 
 #pragma once
 
-#include "VoxelEngine.h"
 #include "Voxel.h"
-#include "meshes/ChunkMesh.h"
-#include "Chunk.h"
+#include "Settings.h"
 
 
-constexpr int CHUNK_SIZE = 16;
-constexpr int H_CHUNK_SIZE = CHUNK_SIZE / 2;
-constexpr int CHUNK_AREA = CHUNK_SIZE * CHUNK_SIZE;
-constexpr int CHUNK_VOLUME = CHUNK_AREA * CHUNK_SIZE;
 
-class ChunkMesh;
 
 class Chunk {
 
@@ -30,5 +23,5 @@ public:
         return x + CHUNK_SIZE * z + CHUNK_AREA * y;
     };
 
-    Voxel voxels[CHUNK_VOLUME];
+    Voxel voxels[CHUNK_VOLUME]{};
 };

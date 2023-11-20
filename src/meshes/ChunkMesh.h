@@ -6,9 +6,9 @@
 
 
 #include "BaseMesh.h"
-#include "../VoxelEngine.h"
-#include "../Chunk.h"
 #include "../Voxel.h"
+#include "../VoxelVertex.h"
+#include "../Settings.h"
 
 class Chunk;
 

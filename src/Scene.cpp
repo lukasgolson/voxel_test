@@ -12,6 +12,7 @@ Scene::Scene() {
     this->chunk = new Chunk();
     this->chunkMesh = new ChunkMesh(this->chunk);
 
+    this->quadMesh = new QuadMesh();
 }
 
 void Scene::Update() {
@@ -19,6 +20,6 @@ void Scene::Update() {
 }
 
 void Scene::Render() {
-
     this->chunkMesh->Render();
+    this->quadMesh->Render();
 }

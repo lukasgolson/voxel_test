@@ -3,9 +3,10 @@
 //
 
 #include "ChunkMesh.h"
-#include "../VoxelVertex.h"
+#include "../Chunk.h"
 
-ChunkMesh::ChunkMesh(Chunk *chunk) : chunk(chunk) {
+
+ChunkMesh::ChunkMesh(Chunk *chunk) : chunk(chunk), BaseMesh() {
 
 }
 

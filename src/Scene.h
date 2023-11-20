@@ -4,13 +4,9 @@
 
 #pragma once
 
-
-#include "meshes/ChunkMesh.h"
-#include "ShaderProgram.h"
 #include "Chunk.h"
-
-
-
+#include "meshes/ChunkMesh.h"
+#include "meshes/QuadMesh.h"
 
 
 class Scene {
@@ -24,4 +20,5 @@ public:
 
     Chunk *chunk;
     ChunkMesh *chunkMesh;
+    QuadMesh *quadMesh;
 };

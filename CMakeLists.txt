@@ -34,6 +34,8 @@ add_executable(main main.cpp
         src/Chunk.h
         src/Voxel.h
         src/VoxelVertex.h
+        src/Settings.cpp
+        src/Settings.h
 )
 
 find_package(glfw3 CONFIG REQUIRED)

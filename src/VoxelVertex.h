@@ -22,7 +22,7 @@ struct VoxelVertex {
               faceID(faceID) {}
 };
 
-void AddVerticesToData(std::vector<float>& data, const std::initializer_list<VoxelVertex>& vertices) {
+inline static void AddVerticesToData(std::vector<float>& data, const std::initializer_list<VoxelVertex>& vertices) {
     for (const auto& vertex : vertices) {
         data.push_back(vertex.x);
         data.push_back(vertex.y);
