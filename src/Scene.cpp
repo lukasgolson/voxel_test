@@ -5,8 +5,12 @@
 #include "Scene.h"
 #include "meshes/QuadMesh.h"
 
-Scene::Scene(ShaderProgram *shaderProgram) {
-    this->quad = new QuadMesh();
+
+Scene::Scene() {
+
+
+    this->chunk = new Chunk();
+    this->chunkMesh = new ChunkMesh(this->chunk);
 
 }
 
@@ -15,5 +19,6 @@ void Scene::Update() {
 }
 
 void Scene::Render() {
-    this->quad->Render();
+
+    this->chunkMesh->Render();
 }

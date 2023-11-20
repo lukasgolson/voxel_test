@@ -1,6 +1,6 @@
 #include "src/OpenGlCommon.h"
 #include <iostream>
-#include "src/voxelEngine.h"
+#include "src/VoxelEngine.h"
 
 double resolutionX = 1200, resolutionY = 900;
 
@@ -35,6 +35,7 @@ GLFWwindow *CreateWindow(glm::vec<2, int> window_size) {
 
 
     glfwMakeContextCurrent(new_window);
+
     gladLoadGL((GLADloadfunc) glfwGetProcAddress);
 
 
@@ -57,7 +58,7 @@ int main() {
     glfwSetKeyCallback(window, key_callback);
 
 
-    auto VoxelEngine = new voxelEngine();
+    auto VoxelEngine = new class VoxelEngine();
 
 
     while (!glfwWindowShouldClose(window)) {

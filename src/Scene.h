@@ -2,27 +2,26 @@
 // Created by lukas on 2023-11-16.
 //
 
-#ifndef VOXEL_TEST_SCENE_H
-#define VOXEL_TEST_SCENE_H
+#pragma once
 
 
-#include "meshes/QuadMesh.h"
+#include "meshes/ChunkMesh.h"
 #include "ShaderProgram.h"
+#include "Chunk.h"
+
+
+
+
 
 class Scene {
 public:
-    Scene(ShaderProgram *shaderProgram);
-
+    Scene();
 
 
     void Update();
 
     void Render();
 
-    BaseMesh *quad;
-    ShaderProgram *shaderProgram;
-
+    Chunk *chunk;
+    ChunkMesh *chunkMesh;
 };
-
-
-#endif //VOXEL_TEST_SCENE_H

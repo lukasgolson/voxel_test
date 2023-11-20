@@ -1,21 +1,18 @@
-
-#ifndef VOXEL_TEST_VOXELENGINE_H
-#define VOXEL_TEST_VOXELENGINE_H
-
+#pragma once
 
 
 #include "Camera.h"
 #include "ShaderProgram.h"
 #include "Scene.h"
 
-class voxelEngine {
+class VoxelEngine {
     Camera *camera;
     ShaderProgram *shaderProgram;
     Scene *scene;
 
 public:
-    voxelEngine();
-    ~voxelEngine() = default;
+    VoxelEngine();
+    ~VoxelEngine() = default;
     void update();
 
     double deltaTime;
@@ -23,4 +20,3 @@ public:
 };
 
 
-#endif //VOXEL_TEST_VOXELENGINE_H

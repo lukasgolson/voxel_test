@@ -3,20 +3,21 @@
 //
 
 #include <stdexcept>
-#include "voxelEngine.h"
+#include "VoxelEngine.h"
 #include "FlyingCamera.h"
 #include "Scene.h"
 
+class Scene;
 
-voxelEngine::voxelEngine() {
+VoxelEngine::VoxelEngine() {
 
     this->camera = new FlyingCamera(glm::vec3{0.0f, 0.0f, 0.0f}, 0.0f, 0.0f);
     this->shaderProgram = new ShaderProgram("shaders", "quad", camera);
-    this->scene = new Scene(this->shaderProgram);
+    this->scene = new Scene();
 }
 
 
-void voxelEngine::update() {
+void VoxelEngine::update() {
 
     double currentFrameTime = glfwGetTime();
     this->deltaTime = currentFrameTime - lastFrameTime;

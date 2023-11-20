@@ -2,8 +2,7 @@
 // Created by lukas on 2023-11-13.
 //
 
-#ifndef VOXEL_TEST_BASEMESH_H
-#define VOXEL_TEST_BASEMESH_H
+#pragma once
 
 
 #include <vector>
@@ -21,7 +20,6 @@ protected:
 
 
 public:
-    BaseMesh();
 
     virtual ~BaseMesh(); // Virtual destructor
 
@@ -29,5 +27,3 @@ public:
 
     virtual std::vector<float> GetVertexData() = 0; // Pure virtual function
 };
-
-#endif //VOXEL_TEST_BASEMESH_H

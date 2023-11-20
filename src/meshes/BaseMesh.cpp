@@ -4,7 +4,7 @@
 
 #include "BaseMesh.h"
 
-BaseMesh::BaseMesh() = default;
+
 
 BaseMesh::~BaseMesh() {
     // Clean up the VAO and VBO when the mesh is destroyed
@@ -37,6 +37,7 @@ void BaseMesh::Render() {
     glBindVertexArray(VAO);
 
     // Issue OpenGL draw calls to render the mesh
+    glDrawArrays(GL_TRIANGLES, 0, vertexCount);
     glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 
     // Unbind the VAO after rendering

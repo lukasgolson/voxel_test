@@ -1,5 +1,4 @@
-#ifndef VOXEL_TEST_SHADERPROGRAM_H
-#define VOXEL_TEST_SHADERPROGRAM_H
+#pragma once
 
 
 #include <string>
@@ -32,6 +31,3 @@ private:
     GLint GetUniformLocation(const std::string &name) const;
 
 };
-
-
-#endif //VOXEL_TEST_SHADERPROGRAM_H

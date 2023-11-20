@@ -2,12 +2,12 @@
 // Created by lukas on 2023-11-12.
 //
 
-#ifndef VOXEL_TEST_FLYINGCAMERA_H
-#define VOXEL_TEST_FLYINGCAMERA_H
+#pragma once
+
 
 
 #include "Camera.h"
-#include "voxelEngine.h"
+#include "VoxelEngine.h"
 
 class FlyingCamera : public Camera {
     void update(double delta_time) override;
@@ -22,6 +22,3 @@ public:
     double lastMouseX;
     double lastMouseY;
 };
-
-
-#endif //VOXEL_TEST_FLYINGCAMERA_H

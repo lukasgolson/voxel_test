@@ -2,8 +2,7 @@
 // Created by lukas on 2023-11-12.
 //
 
-#ifndef VOXEL_TEST_CAMERA_H
-#define VOXEL_TEST_CAMERA_H
+#pragma once
 
 #include "OpenGlCommon.h"
 #include <glm/vec3.hpp>
@@ -49,6 +48,3 @@ protected:
     GLFWwindow *window;
     glm::vec3 position{};
 };
-
-
-#endif //VOXEL_TEST_CAMERA_H

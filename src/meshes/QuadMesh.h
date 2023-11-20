@@ -2,9 +2,7 @@
 // Created by lukas on 2023-11-18.
 //
 
-#ifndef VOXEL_TEST_QUADMESH_H
-#define VOXEL_TEST_QUADMESH_H
-
+#pragma once
 
 #include "BaseMesh.h"
 
@@ -16,6 +14,3 @@ public:
     QuadMesh();
     std::vector<float> GetVertexData() override;
 };
-
-
-#endif //VOXEL_TEST_QUADMESH_H
