@@ -6,10 +6,10 @@ const vec3 gamma = vec3(2.2);
 const vec3 inv_gamma = 1 / gamma;
 
 
-in vec3 voxel_color;
+in vec4 voxel_color;
 in vec2 uv;
 
 
 void main() {
-    fragColor = vec4(voxel_color, 1);
+    fragColor = voxel_color;
 }

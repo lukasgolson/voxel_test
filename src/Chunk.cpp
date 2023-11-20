@@ -17,7 +17,7 @@ void Chunk::BuildVoxels() {
     for (int x = 0; x < CHUNK_SIZE; ++x) {
         for (int z = 0; z < CHUNK_SIZE; ++z) {
             for (int y = 0; y < CHUNK_SIZE; ++y) {
-                voxels[GetVoxelIndex(x, y, z)] = {255, 255, 255, 255};
+                voxels[GetVoxelIndex(x, y, z)] = {static_cast<uint8_t>((x % 126) * 2), static_cast<uint8_t>((y % 126) * 2), static_cast<uint8_t>((z % 126) * 2), static_cast<uint8_t>(((z % 51) * 4) + 51)};
             }
         }
     }

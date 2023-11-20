@@ -13,6 +13,11 @@ BaseMesh::~BaseMesh() {
 }
 
 void BaseMesh::SetupMesh(int elementsPerVertex) {
+    // Check if VAO exists and delete it
+    if (VAO != 0) {
+        glDeleteVertexArrays(1, &VAO);
+    }
+
     auto vertexData = GetVertexData();
     vertexCount = static_cast<GLsizei>(vertexData.size() / elementsPerVertex); // Update this based on your vertex structure
 
@@ -37,7 +42,6 @@ void BaseMesh::Render() {
     glBindVertexArray(VAO);
 
     // Issue OpenGL draw calls to render the mesh
-    glDrawArrays(GL_TRIANGLES, 0, vertexCount);
     glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 
     // Unbind the VAO after rendering

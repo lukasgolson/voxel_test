@@ -23,5 +23,5 @@ public:
 
     void SetVertexAttributes() override;
 
-    bool IsVoid(int x, int y, int z, Voxel *voxels);
+    bool IsVoid(int x, int y, int z, int currentAlpha, Voxel *voxels);
 };

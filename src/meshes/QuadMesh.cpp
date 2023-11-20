@@ -7,7 +7,6 @@
 
 QuadMesh::QuadMesh() {
     // Set up the mesh (VAO, VBO, etc.) using BaseMesh's setup functionality
-    this->vertexCount = 6; // Two triangles, 3 vertices each
     SetupMesh(6);
 }
 

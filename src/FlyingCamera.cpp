@@ -17,7 +17,7 @@ void FlyingCamera::update(double delta_time) {
 
 void FlyingCamera::keyboardInput(double deltaTime) {
 
-    const float speed = 5.0f;
+    const float speed = 10.0f;
 
     if (glfwGetKey(this->window, GLFW_KEY_A) == GLFW_PRESS) {
         updatePosition({-speed * deltaTime, 0.0, 0.0});
@@ -59,7 +59,7 @@ void FlyingCamera::mouseInput(double delta_time) {
         return; // Skip this frame to avoid jump in camera orientation
     }
 
-    const float sensitivity = 5.0f; // Inline constant for sensitivity
+    const float sensitivity = 10.0f; // Inline constant for sensitivity
     float xoffset = (xpos - this->lastMouseX) * sensitivity * delta_time;
     float yoffset = (this->lastMouseY - ypos) * sensitivity * delta_time;
 
