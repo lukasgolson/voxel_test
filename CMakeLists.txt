@@ -36,6 +36,9 @@ add_executable(main main.cpp
         src/VoxelVertex.h
         src/Settings.cpp
         src/Settings.h
+        src/VoxelWorld.cpp
+        src/VoxelWorld.h
+        src/types/Coordinates.h
 )
 
 find_package(glfw3 CONFIG REQUIRED)

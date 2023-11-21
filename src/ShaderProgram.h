@@ -4,6 +4,7 @@
 #include <string>
 #include "Camera.h"
 #include "OpenGlCommon.h"
+#include "meshes/BaseMesh.h"
 
 
 class ShaderProgram {
@@ -15,6 +16,7 @@ public:
 
 
     void Update();
+
 
 private:
     void SetUniforms();
@@ -29,5 +31,6 @@ private:
     Camera *camera;
 
     GLint GetUniformLocation(const std::string &name) const;
+
 
 };

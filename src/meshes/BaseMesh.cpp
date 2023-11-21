@@ -19,7 +19,7 @@ void BaseMesh::SetupMesh(int elementsPerVertex) {
     }
 
     auto vertexData = GetVertexData();
-    vertexCount = static_cast<GLsizei>(vertexData.size() / elementsPerVertex); // Update this based on your vertex structure
+    vertexCount = static_cast<GLsizei>(vertexData.size() / elementsPerVertex); // Render this based on your vertex structure
 
     // Generate and bind Vertex Array Object (VAO)
     glGenVertexArrays(1, &VAO);
@@ -38,6 +38,7 @@ void BaseMesh::SetupMesh(int elementsPerVertex) {
 }
 
 void BaseMesh::Render() {
+
     // Bind the Vertex Array Object (VAO) for rendering
     glBindVertexArray(VAO);
 

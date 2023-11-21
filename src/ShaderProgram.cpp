@@ -36,13 +36,15 @@ void ShaderProgram::SetUniforms() {
     auto viewLocation = this->GetUniformLocation("m_view");
     auto viewMatrix = this->camera->GetViewMatrix();
 
-    auto modelLocation = this->GetUniformLocation("m_model");
-    auto modelMatrix = glm::mat4{1.0f};
 
+    auto modelLocation = this->GetUniformLocation("m_model");
+    auto modelMatrix = glm::mat4(1.0f);
+
+    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
     glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
     glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
 }
 
 

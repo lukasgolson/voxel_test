@@ -8,7 +8,7 @@
 #include <cstdint>
 
 struct VoxelVertex {
-    float x, y, z; // Position coordinates
+    float x, y, z; // Position position
     float r, g, b, a; // Color components
     float faceID; // Identifier for the face
 

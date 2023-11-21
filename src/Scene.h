@@ -7,6 +7,7 @@
 #include "Chunk.h"
 #include "meshes/ChunkMesh.h"
 #include "meshes/QuadMesh.h"
+#include "VoxelWorld.h"
 
 
 class Scene {
@@ -18,7 +19,7 @@ public:
 
     void Render();
 
+    //VoxelWorld *world;
     Chunk *chunk;
     ChunkMesh *chunkMesh;
-    QuadMesh *quadMesh;
 };

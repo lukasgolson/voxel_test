@@ -7,8 +7,6 @@
 #include "FlyingCamera.h"
 #include "Scene.h"
 
-class Scene;
-
 VoxelEngine::VoxelEngine() {
 
     this->camera = new FlyingCamera(glm::vec3{0.0f, 0.0f, 0.0f}, 0.0f, 0.0f);

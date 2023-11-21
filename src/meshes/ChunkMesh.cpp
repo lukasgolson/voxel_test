@@ -3,12 +3,17 @@
 //
 
 #include <iostream>
+#include <glm/ext/matrix_transform.hpp>
 #include "ChunkMesh.h"
 #include "../Chunk.h"
 
 
-ChunkMesh::ChunkMesh(Chunk *chunk) : chunk(chunk), BaseMesh() {
-    SetupMesh(8);
+ChunkMesh::ChunkMesh() : BaseMesh() {
+    //SetupMesh(8);
+}
+
+void ChunkMesh::AssociateChunk(Chunk *chunk) {
+    this->chunk = chunk;
 }
 
 bool ChunkMesh::IsVoid(int x, int y, int z, int currentAlpha, Voxel voxels[CHUNK_VOLUME]) {
@@ -122,4 +127,22 @@ std::vector<float> ChunkMesh::GetVertexData() {
     }
 
     return vertexData;
+}
+
+void ChunkMesh::Render() {
+
+    if (chunk->Dirty || !this->IsInitialized()) {
+        SetupMesh(8);
+        chunk->Dirty = false;
+    }
+
+    BaseMesh::Render();
+}
+
+bool ChunkMesh::IsInitialized() {
+    return this->VAO != 0;
+}
+
+glm::mat4 ChunkMesh::GetModelMatrix() {
+    return glm::translate(glm::mat4(1.0f), glm::vec3(chunk->position.x * CHUNK_SIZE, chunk->position.y * CHUNK_SIZE, chunk->position.z * CHUNK_SIZE));
 }

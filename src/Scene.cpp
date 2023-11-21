@@ -4,13 +4,21 @@
 
 #include "Scene.h"
 #include "meshes/QuadMesh.h"
+#include "VoxelWorld.h"
 
 
 Scene::Scene() {
-    this->quadMesh = new QuadMesh();
+
+
+    // this->world = new VoxelWorld();
 
     this->chunk = new Chunk();
-    this->chunkMesh = new ChunkMesh(this->chunk);
+    this->chunkMesh = new ChunkMesh();
+    this->chunkMesh->AssociateChunk(this->chunk);
+
+    this->chunk->BuildVoxels();
+
+
 }
 
 void Scene::Update() {
@@ -18,6 +26,8 @@ void Scene::Update() {
 }
 
 void Scene::Render() {
-    this->chunkMesh->Render();
+    //  this->world->Render();
     //this->quadMesh->Render();
+
+    this->chunkMesh->Render();
 }
