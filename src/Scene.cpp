@@ -7,7 +7,7 @@
 #include "VoxelWorld.h"
 
 
-Scene::Scene() {
+Scene::Scene(ShaderProgram *shaderProgram) {
 
 
     // this->world = new VoxelWorld();
@@ -17,6 +17,8 @@ Scene::Scene() {
     this->chunkMesh->AssociateChunk(this->chunk);
 
     this->chunk->BuildVoxels();
+
+    this->shaderProgram = shaderProgram;
 
 
 }
@@ -28,6 +30,8 @@ void Scene::Update() {
 void Scene::Render() {
     //  this->world->Render();
     //this->quadMesh->Render();
+
+    this->shaderProgram->SetModelMatrix(this->chunkMesh->GetModelMatrix());
 
     this->chunkMesh->Render();
 }

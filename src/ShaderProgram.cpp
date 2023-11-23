@@ -30,23 +30,26 @@ void ShaderProgram::Update() {
 
 void ShaderProgram::SetUniforms() {
 
-    auto projectionLocation = this->GetUniformLocation("m_projection");
-    auto projectionMatrix = this->camera->GetProjectionMatrix();
-
-    auto viewLocation = this->GetUniformLocation("m_view");
-    auto viewMatrix = this->camera->GetViewMatrix();
 
 
-    auto modelLocation = this->GetUniformLocation("m_model");
-    auto modelMatrix = glm::mat4(1.0f);
 
-    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
+
+
+    this->SetUniform("m_projection", this->camera->GetProjectionMatrix());
+    this->SetUniform("m_view", this->camera->GetViewMatrix());
+    this->SetUniform("m_model", glm::mat4(1.0f));
 }
 
+void ShaderProgram::SetUniform(const std::string &name, const glm::mat4 &value) {
+    auto location = this->GetUniformLocation(name);
+    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+}
+
+void ShaderProgram::SetModelMatrix(const glm::mat4 &value) {
+    this->SetUniform("m_model", value);
+}
 
 auto ShaderProgram::GetUniformLocation(const std::string &name) const -> GLint {
     return glGetUniformLocation(this->program, name.c_str());

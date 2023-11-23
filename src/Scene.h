@@ -8,11 +8,12 @@
 #include "meshes/ChunkMesh.h"
 #include "meshes/QuadMesh.h"
 #include "VoxelWorld.h"
+#include "ShaderProgram.h"
 
 
 class Scene {
 public:
-    Scene();
+    Scene(ShaderProgram *shaderProgram);
 
 
     void Update();
@@ -22,4 +23,5 @@ public:
     //VoxelWorld *world;
     Chunk *chunk;
     ChunkMesh *chunkMesh;
+    ShaderProgram *shaderProgram;
 };

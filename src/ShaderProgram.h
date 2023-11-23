@@ -11,11 +11,9 @@ class ShaderProgram {
 public:
     ShaderProgram(const std::string& shaderDir, const std::string& shaderName, Camera *camera);
     ~ShaderProgram();
-
-
-
-
     void Update();
+
+    void SetModelMatrix(const glm::mat4 &value);
 
 
 private:
@@ -32,5 +30,6 @@ private:
 
     GLint GetUniformLocation(const std::string &name) const;
 
+    void SetUniform(const std::string &name, const glm::mat4 &value);
 
 };
