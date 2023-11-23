@@ -16,6 +16,8 @@ class Chunk {
 
 public:
     Chunk();
+
+    Chunk(Coordinates position);
     ~Chunk();
 
     void BuildVoxels();

@@ -20,8 +20,6 @@ public:
 
     void Render();
 
-    //VoxelWorld *world;
-    Chunk *chunk;
-    ChunkMesh *chunkMesh;
     ShaderProgram *shaderProgram;
+    VoxelWorld *vw;
 };

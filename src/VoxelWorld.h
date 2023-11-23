@@ -7,6 +7,7 @@
 
 #include "Chunk.h"
 #include "meshes/ChunkMesh.h"
+#include "ShaderProgram.h"
 
 
 class VoxelWorld {
@@ -22,9 +23,9 @@ public:
     void BuildChunkMesh();
 
 
-    void Render();
-
 
     Chunk chunks[WORLD_VOLUME];
     ChunkMesh chunkMeshes[WORLD_VOLUME];
+
+    void Render(ShaderProgram *shaderProgram);
 };

@@ -7,6 +7,10 @@
 #include "Chunk.h"
 
 Chunk::Chunk() {
+    position = {0, 0, 0};
+}
+
+Chunk::Chunk(Coordinates position) : position(position) {
 
 }
 
@@ -49,8 +53,8 @@ void Chunk::BuildVoxels() {
                 int distanceSquared = dx * dx + dy * dy + dz * dz;
 
                 // Check if within sphere
-              //  if (distanceSquared <= radius * radius) {
-              if (true){
+                if (distanceSquared <= radius * radius) {
+
                     // Create a rainbow effect based on position
                     float hue = static_cast<float>((x + y + z) % CHUNK_SIZE) / CHUNK_SIZE;
                     auto [r, g, b] = HueToRGB(hue);
@@ -63,7 +67,7 @@ void Chunk::BuildVoxels() {
                     };
                 }
 
-               // voxels[GetVoxelIndex(x, y, z)] = {static_cast<uint8_t>((x % 126) * 2), static_cast<uint8_t>((y % 126) * 2), static_cast<uint8_t>((z % 126) * 2), static_cast<uint8_t>(((z % 51) * 4) + 51)};
+                // voxels[GetVoxelIndex(x, y, z)] = {static_cast<uint8_t>((x % 126) * 2), static_cast<uint8_t>((y % 126) * 2), static_cast<uint8_t>((z % 126) * 2), static_cast<uint8_t>(((z % 51) * 4) + 51)};
             }
         }
     }

@@ -12,13 +12,11 @@ Scene::Scene(ShaderProgram *shaderProgram) {
 
     // this->world = new VoxelWorld();
 
-    this->chunk = new Chunk();
-    this->chunkMesh = new ChunkMesh();
-    this->chunkMesh->AssociateChunk(this->chunk);
 
-    this->chunk->BuildVoxels();
 
     this->shaderProgram = shaderProgram;
+
+    this->vw = new VoxelWorld();
 
 
 }
@@ -31,7 +29,7 @@ void Scene::Render() {
     //  this->world->Render();
     //this->quadMesh->Render();
 
-    this->shaderProgram->SetModelMatrix(this->chunkMesh->GetModelMatrix());
 
-    this->chunkMesh->Render();
+
+    this->vw->Render(this->shaderProgram);
 }

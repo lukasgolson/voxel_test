@@ -36,9 +36,6 @@ void ChunkMesh::SetVertexAttributes() {
 }
 
 std::vector<float> ChunkMesh::GetVertexData() {
-
-    std::cout << "Generating mesh for chunk" << std::endl;
-
     // create new vector to store vertex data; size = CHUNK_VOL * 18 (6 faces * 3 vertices * 3 floats) * 5 (5 floats per vertex)
     std::vector<float> vertexData;
     vertexData.reserve(CHUNK_VOLUME * 18 * 5);
