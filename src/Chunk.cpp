@@ -10,7 +10,8 @@ Chunk::Chunk() {
     position = {0, 0, 0};
 }
 
-Chunk::Chunk(Coordinates position) : position(position) {
+
+Chunk::Chunk(Coordinate position) : position(position) {
 
 }
 
@@ -59,11 +60,8 @@ void Chunk::BuildVoxels() {
                     float hue = static_cast<float>((x + y + z) % CHUNK_SIZE) / CHUNK_SIZE;
                     auto [r, g, b] = HueToRGB(hue);
 
-                    voxels[GetVoxelIndex(x, y, z)] = {
-                            static_cast<uint8_t>(r),
-                            static_cast<uint8_t>(g),
-                            static_cast<uint8_t>(b),
-                            255
+                    voxels[Coordinate(x, y, z).GetFlatIndex(CHUNK_SIZE)] = {
+                            r, g, b, 255
                     };
                 }
 
@@ -76,6 +74,7 @@ void Chunk::BuildVoxels() {
 }
 
 
-
-
-
+void Chunk::SetVoxel(Coordinate coords, Voxel type) {
+    voxels[coords.GetFlatIndex(CHUNK_AREA)] = type;
+    this->Dirty = true;
+}

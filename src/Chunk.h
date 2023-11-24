@@ -6,22 +6,20 @@
 
 #include "Voxel.h"
 #include "Settings.h"
-#include "types/Coordinates.h"
+#include "types/Coordinate.h"
 
 
 class Chunk {
 
 
-
-
 public:
     Chunk();
 
-    Chunk(Coordinates position);
+    Chunk(Coordinate position);
+
     ~Chunk();
 
     void BuildVoxels();
-
 
 
     bool Dirty = false;
@@ -31,11 +29,11 @@ public:
         return x + CHUNK_SIZE * z + CHUNK_AREA * y;
     };
 
-    [[nodiscard]] static int GetVoxelIndex(Coordinates coords) {
-        return coords.x + CHUNK_SIZE * coords.z + CHUNK_AREA * coords.y;
-    };
+
 
     Voxel voxels[CHUNK_VOLUME]{};
 
-    Coordinates position = {0, 0, 0};
+    Coordinate position = {0, 0, 0};
+
+    void SetVoxel(Coordinate coords, Voxel type);
 };

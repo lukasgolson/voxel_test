@@ -38,7 +38,9 @@ add_executable(main main.cpp
         src/Settings.h
         src/VoxelWorld.cpp
         src/VoxelWorld.h
-        src/types/Coordinates.h
+        src/types/Coordinate.h
+        src/Helpers/ValueScaling.h
+        src/Helpers/Color.h
 )
 
 find_package(glfw3 CONFIG REQUIRED)

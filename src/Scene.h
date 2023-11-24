@@ -22,4 +22,6 @@ public:
 
     ShaderProgram *shaderProgram;
     VoxelWorld *vw;
+
+    Coordinate currentCoords = {0, 0, 0};
 };

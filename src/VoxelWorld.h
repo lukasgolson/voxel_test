@@ -18,14 +18,13 @@ class VoxelWorld {
 
 public:
     VoxelWorld();
-    void Build_Chunks();
-
-    void BuildChunkMesh();
-
-
 
     Chunk chunks[WORLD_VOLUME];
     ChunkMesh chunkMeshes[WORLD_VOLUME];
 
     void Render(ShaderProgram *shaderProgram);
+
+    void SetBlock(Coordinate coords, Voxel type);
+
+    Coordinate GetChunkCoordinates(Coordinate worldCoords);
 };
