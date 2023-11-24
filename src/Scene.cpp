@@ -32,7 +32,7 @@ void Scene::Update() {
         auto voxel = Voxel(color.r * 255, color.g * 255, color.b * 255);
 
 
-        this->vw->SetBlock(this->currentCoords, voxel);
+        this->vw->SetVoxel(this->currentCoords, voxel);
 
 
 
@@ -41,22 +41,18 @@ void Scene::Update() {
         if (this->currentCoords.x >= block_size) {
             this->currentCoords.x = 0;
             this->currentCoords.z++;
-            std::cout << "z: " << this->currentCoords.z << std::endl;
         }
 
         if (this->currentCoords.z >= block_size) {
             this->currentCoords.z = 0;
             this->currentCoords.y++;
-            std::cout << "y: " << this->currentCoords.y << std::endl;
         }
 
         if (this->currentCoords.y >= block_size) {
             this->currentCoords.y = 0;
-            this->currentCoords.x = 0;
-            this->currentCoords.z = 0;
-
-            std::cout << "z: " << this->currentCoords.z << std::endl;
         }
+
+
     }
 
 

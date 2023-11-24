@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include <tuple>
+#include <iostream>
 #include "Chunk.h"
 
 Chunk::Chunk() {
@@ -74,7 +75,9 @@ void Chunk::BuildVoxels() {
 }
 
 
-void Chunk::SetVoxel(Coordinate coords, Voxel type) {
-    voxels[coords.GetFlatIndex(CHUNK_AREA)] = type;
+void Chunk::SetVoxel(Coordinate chunkPos, Voxel type) {
+    //print chunkPos
+    std::cout << "ChunkPos: " << chunkPos.x << ", " << chunkPos.y << ", " << chunkPos.z << std::endl;
+    voxels[chunkPos.GetFlatIndex(CHUNK_AREA)] = type;
     this->Dirty = true;
 }

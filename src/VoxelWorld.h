@@ -24,7 +24,7 @@ public:
 
     void Render(ShaderProgram *shaderProgram);
 
-    void SetBlock(Coordinate coords, Voxel type);
+    void SetVoxel(Coordinate worldPos, Voxel type);
 
     Coordinate GetChunkCoordinates(Coordinate worldCoords);
 };
