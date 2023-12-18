@@ -35,5 +35,5 @@ public:
 
     Coordinate position = {0, 0, 0};
 
-    void SetVoxel(Coordinate chunkPos, Voxel type);
+    void SetVoxel(Coordinate localCoord, Voxel type);
 };

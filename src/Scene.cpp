@@ -20,7 +20,7 @@ void Scene::Update() {
     this->Render();
 
 
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 16; ++i) {
         auto block_size = WORLD_SIZE * CHUNK_SIZE;
 
         auto coords = this->currentCoords;
@@ -49,6 +49,7 @@ void Scene::Update() {
         }
 
         if (this->currentCoords.y >= block_size) {
+
             this->currentCoords.y = 0;
         }
 

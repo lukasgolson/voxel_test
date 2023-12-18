@@ -75,9 +75,7 @@ void Chunk::BuildVoxels() {
 }
 
 
-void Chunk::SetVoxel(Coordinate chunkPos, Voxel type) {
-    //print chunkPos
-    std::cout << "ChunkPos: " << chunkPos.x << ", " << chunkPos.y << ", " << chunkPos.z << std::endl;
-    voxels[chunkPos.GetFlatIndex(CHUNK_AREA)] = type;
+void Chunk::SetVoxel(Coordinate localCoord, Voxel type) {
+    voxels[localCoord.GetFlatIndex(CHUNK_SIZE)] = type;
     this->Dirty = true;
 }

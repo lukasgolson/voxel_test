@@ -2,6 +2,7 @@
 // Created by lukas on 2023-11-20.
 //
 
+#include <iostream>
 #include "VoxelWorld.h"
 #include "ShaderProgram.h"
 
@@ -45,7 +46,9 @@ void VoxelWorld::SetVoxel(Coordinate worldPos, Voxel type) {
     auto chunkCoords = GetChunkCoordinates(worldPos);
     auto chunkIndex = chunkCoords.GetFlatIndex(WORLD_SIZE);
 
+
     auto localCoords = Coordinate(worldPos.x - chunkCoords.x * CHUNK_SIZE, worldPos.y - chunkCoords.y * CHUNK_SIZE, worldPos.z - chunkCoords.z * CHUNK_SIZE);
+
 
     chunks[chunkIndex].SetVoxel(localCoords, type);
 
