@@ -3,10 +3,17 @@ project(voxel_test)
 
 set(CMAKE_CXX_STANDARD 17)
 
+
+
 find_package(OpenGL REQUIRED)
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "GLFW lib only")
 set(GLFW_INSTALL OFF CACHE BOOL "GLFW lib only")
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-libgcc -static-libstdc++")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -lpthread -static-libgcc -static-libstdc++")
 
 add_definitions(-DGLFW_INCLUDE_NONE)
 
@@ -43,6 +50,49 @@ add_executable(main main.cpp
         src/Helpers/Color.h
 )
 
+# Only proceed if building on Windows
+if(WIN32)
+    # Set the main target to be a Windows GUI application
+    set_target_properties(main PROPERTIES WIN32_EXECUTABLE TRUE)
+
+    # Define variables for resource file paths
+    set(RESOURCE_FILE ${CMAKE_SOURCE_DIR}/main.rc)
+    set(RESOURCE_OBJECT ${CMAKE_BINARY_DIR}/main_rc.o)
+
+    # Find the windres program used for compiling resource files
+    find_program(WINDRES_EXECUTABLE NAMES windres)
+    if(NOT WINDRES_EXECUTABLE)
+        message(FATAL_ERROR "windres not found")
+    endif()
+
+    # Custom command to compile the resource file
+    add_custom_command(
+            OUTPUT ${RESOURCE_OBJECT}
+            COMMAND ${WINDRES_EXECUTABLE} -i ${RESOURCE_FILE} -o ${RESOURCE_OBJECT}
+            DEPENDS ${RESOURCE_FILE}
+            COMMENT "Compiling resource file ${RESOURCE_FILE}"
+    )
+
+
+
+    # Custom target to manage the resource file compilation
+    add_custom_target(
+            GenerateMainRC
+            DEPENDS ${RESOURCE_OBJECT}
+            COMMENT "Generating resource object file"
+    )
+
+    # Ensure the main target depends on the custom target
+    add_dependencies(main GenerateMainRC)
+
+    # Link the compiled resource object file with the main target
+    target_link_libraries(main PRIVATE ${RESOURCE_OBJECT})
+endif()
+
+
+set_target_properties(main PROPERTIES OUTPUT_NAME "voxel_engine")
+
+
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glfw)
 
@@ -58,6 +108,8 @@ if(MSVC)
 else()
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 endif()
+
+
 
 # Specify the shaders directory
 set(SHADERS_DIR ${CMAKE_SOURCE_DIR}/shaders)

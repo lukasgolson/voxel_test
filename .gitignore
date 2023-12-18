@@ -6,6 +6,8 @@ CMakeFiles/
 CMakeScripts/
 cmake-build-debug/
 cmake-build-release/
+cmake-build-minsizerel/
+cmake-build-relwithdebinfo/
 
 # Ignore CMake generated files
 CMakeCache.txt
