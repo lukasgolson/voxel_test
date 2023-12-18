@@ -20,7 +20,7 @@ VoxelWorld::VoxelWorld() {
 
                 chunkMeshes[index].AssociateChunk(&chunks[index]);
                 chunks[index].position = {x, y, z};
-                chunks[index].BuildVoxels();
+               // chunks[index].BuildVoxels();
 
             }
         }

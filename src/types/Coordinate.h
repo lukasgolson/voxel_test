@@ -10,20 +10,20 @@
 struct Coordinate {
     Coordinate(int x, int y, int z) : x(x), y(y), z(z) {}
 
-    Coordinate(int index, int size) {
-        if (size <= 0) {
-            throw std::out_of_range("size must be greater than 0");
+    Coordinate(int index, int dimensionLength) {
+        if (dimensionLength <= 0) {
+            throw std::out_of_range("dimensionLength must be greater than 0");
         }
 
-        if (index < 0 || index >= size * size * size) {
-            throw std::out_of_range("index must fit within the volume space of size");
+        if (index < 0 || index >= dimensionLength * dimensionLength * dimensionLength) {
+            throw std::out_of_range("index must fit within the volume space of dimensionLength");
         }
 
-        int area = size * size;
+        int area = dimensionLength * dimensionLength;
         y = index / area;
         int remainder = index % area;
-        z = remainder / size;
-        x = remainder % size;
+        z = remainder / dimensionLength;
+        x = remainder % dimensionLength;
     }
 
 
@@ -31,19 +31,42 @@ struct Coordinate {
     int y;
     int z;
 
-    [[nodiscard]] int GetFlatIndex(int dimension_size) {
+    // Overload the + operator
+    Coordinate operator+(const Coordinate& other) const {
+        return Coordinate(x + other.x, y + other.y, z + other.z);
+    }
 
-        if (dimension_size <= 0) {
-            throw std::out_of_range("dimension_size must be greater than 0");
+    // Overload the - operator
+    Coordinate operator-(const Coordinate& other) const {
+        return Coordinate(x - other.x, y - other.y, z - other.z);
+    }
+
+    // Overload the * operator for element-wise multiplication
+    Coordinate operator*(const Coordinate& other) const {
+        return Coordinate(x * other.x, y * other.y, z * other.z);
+    }
+
+    // Overload the / operator for element-wise division
+    Coordinate operator/(const Coordinate& other) const {
+        if (other.x == 0 || other.y == 0 || other.z == 0) {
+            throw std::invalid_argument("Division by zero in one or more components");
+        }
+        return Coordinate(x / other.x, y / other.y, z / other.z);
+    }
+
+    [[nodiscard]] int GetFlatIndex(int dimensionLength) {
+
+        if (dimensionLength <= 0) {
+            throw std::out_of_range("dimensionLength must be greater than 0");
         }
 
-        if (x < 0 || x >= dimension_size || y < 0 || y >= dimension_size || z < 0 || z >= dimension_size) {
-            throw std::out_of_range("coordinates must fit within the space of dimension_size * dimension_size * dimension_size");
+        if (x < 0 || x >= dimensionLength || y < 0 || y >= dimensionLength || z < 0 || z >= dimensionLength) {
+            throw std::out_of_range("coordinates must fit within the space of dimensionLength * dimensionLength * dimensionLength");
         }
 
-        int area = dimension_size * dimension_size;
+        int area = dimensionLength * dimensionLength;
 
-        int index = x + dimension_size * z + area * y;
+        int index = x + dimensionLength * z + area * y;
 
         return index;
     }
