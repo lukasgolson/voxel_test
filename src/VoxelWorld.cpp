@@ -19,7 +19,7 @@ VoxelWorld::VoxelWorld() {
                 auto index = Coordinate(x, y, z).GetFlatIndex(WORLD_SIZE);
 
                 chunkMeshes[index].AssociateChunk(&chunks[index]);
-                chunks[index].position = {index % WORLD_SIZE, (index / WORLD_SIZE) % WORLD_SIZE, index / (WORLD_SIZE * WORLD_SIZE)};
+                chunks[index].position = {x, y, z};
                 chunks[index].BuildVoxels();
 
             }
