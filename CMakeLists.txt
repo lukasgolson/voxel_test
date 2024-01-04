@@ -6,6 +6,15 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 find_package(OpenGL REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
+
+# Python bindings
+find_package(Python 3.6 COMPONENTS Interpreter Development REQUIRED)
+find_package(pybind11 CONFIG REQUIRED)
+
+add_subdirectory(dependencies/glad)
+
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "GLFW lib only")
 set(GLFW_INSTALL OFF CACHE BOOL "GLFW lib only")
@@ -50,6 +59,12 @@ add_executable(main main.cpp
         src/Helpers/Color.h
 )
 
+
+
+
+pybind11_add_module(pythonModule python/Example.cpp)
+
+
 # Only proceed if building on Windows
 if(WIN32)
     # Set the main target to be a Windows GUI application
@@ -93,14 +108,13 @@ endif()
 set_target_properties(main PROPERTIES OUTPUT_NAME "voxel_engine")
 
 
-find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glfw)
-
-find_package(glm CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glm::glm)
-
-add_subdirectory(dependencies/glad)
 target_link_libraries(main PRIVATE glad)
+
+target_link_libraries(pythonModule PRIVATE glfw)
+target_link_libraries(pythonModule PRIVATE glm::glm)
+target_link_libraries(pythonModule PRIVATE glad)
 
 # Set optimizations
 if(MSVC)

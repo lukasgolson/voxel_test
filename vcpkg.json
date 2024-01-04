@@ -14,5 +14,8 @@
   }, {
     "name" : "vcpkg-cmake",
     "version>=" : "2023-05-04"
+  }, {
+    "name" : "pybind11",
+    "version>=" : "2.11.1"
   } ]
 }
