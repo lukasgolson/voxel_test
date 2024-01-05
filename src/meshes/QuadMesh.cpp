@@ -21,7 +21,7 @@ void QuadMesh::SetVertexAttributes() {
 }
 
 std::vector<float> QuadMesh::GetVertexData() {
-    // Vertex data: position (x, y, z) followed by color (r, g, b)
+    // Vertex data: position (x, y, z) followed by color (red, g, b)
     return {
             // Vertex 1: Position, Color
             -1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f,

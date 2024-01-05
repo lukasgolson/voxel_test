@@ -4,11 +4,7 @@
 
 #include <iostream>
 #include "Scene.h"
-#include "meshes/QuadMesh.h"
 #include "VoxelWorld.h"
-#include "Helpers/ValueScaling.h"
-#include "Helpers/Color.h"
-
 
 Scene::Scene(ShaderProgram *shaderProgram) {
     this->shaderProgram = shaderProgram;

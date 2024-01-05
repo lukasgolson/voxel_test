@@ -64,18 +64,25 @@ add_executable(main main.cpp
         src/VoxelWorld.h
         src/types/Coordinate.h
         src/Helpers/ValueScaling.h
-        src/Helpers/Color.h
 
         src/WindowManager.h
         src/WindowManager.cpp
         src/WindowManager.h
         src/Enums/ShaderType.h
+        src/Bindings/VoxelWindow.cpp
+        src/Bindings/VoxelWindow.h
+        src/types/Rgb.cpp
+        src/types/Rgb.h
+        src/types/Rgba.cpp
+        src/types/Rgba.h
+        src/types/Hsv.cpp
+        src/types/Hsv.h
 )
 
 
 
 
-pybind11_add_module(pythonModule python/Example.cpp)
+pybind11_add_module(voxelTest python/binding_VoxelEngine.cpp)
 
 
 
@@ -135,9 +142,9 @@ target_link_libraries(main PRIVATE glfw)
 target_link_libraries(main PRIVATE glm::glm)
 target_link_libraries(main PRIVATE glad)
 
-target_link_libraries(pythonModule PRIVATE glfw)
-target_link_libraries(pythonModule PRIVATE glm::glm)
-target_link_libraries(pythonModule PRIVATE glad)
+target_link_libraries(voxelTest PRIVATE glfw)
+target_link_libraries(voxelTest PRIVATE glm::glm)
+target_link_libraries(voxelTest PRIVATE glad)
 
 # Set optimizations
 if(MSVC)
@@ -163,5 +170,5 @@ target_sources(main PRIVATE ${OUTPUT_FILE})
 get_target_property(MAIN_SOURCES main SOURCES)
 
 # Add the source files to the python module
-target_sources(pythonModule PRIVATE ${MAIN_SOURCES})
+target_sources(voxelTest PRIVATE ${MAIN_SOURCES})
 

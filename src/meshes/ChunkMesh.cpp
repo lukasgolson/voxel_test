@@ -49,7 +49,7 @@ std::vector<float> ChunkMesh::GetVertexData() {
 
               //  std::cout << "Generating mesh for voxel at " << x << ", " << y << ", " << z << std::endl;
 
-                // format: x, y, z, r,g,b,a, face_id
+                // format: x, y, z, red,g,b,a, face_id
                 // Face ID: 0 = top, 1 = bottom, 2 = right, 3 = left, 4 = back, 5 = front
 
                 // top face
