@@ -61,6 +61,7 @@ add_executable(main main.cpp
         src/types/Coordinate.h
         src/Helpers/ValueScaling.h
         src/Helpers/Color.h
+        src/Enums/ShaderType.h
 )
 
 
@@ -128,28 +129,13 @@ else()
 endif()
 
 
-
-# Specify the shaders directory
-set(SHADERS_DIR ${CMAKE_SOURCE_DIR}/shaders)
-set(SHADERS_DEST_DIR ${CMAKE_BINARY_DIR}/shaders)
-
-# Copy the shaders directory to the build directory initially
-file(COPY ${SHADERS_DIR} DESTINATION ${SHADERS_DEST_DIR})
-
-# Create a custom target to copy shaders when they change
-add_custom_target(CopyShaders
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${SHADERS_DIR} ${SHADERS_DEST_DIR}
-        DEPENDS ${SHADERS_DIR}
-)
-
 add_custom_target(
         RegenerateShaderLoader ALL
-        COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_SOURCE_DIR}/generate_shader_loader.cmake
+        COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/generate_shader_loader.cmake
         COMMENT "Regenerating Shader Loader"
 )
 
 # Make MyApp depend on CopyShaders, so it's copied before building MyApp
-add_dependencies(main CopyShaders)
 add_dependencies(main RegenerateShaderLoader)
 target_sources(main PRIVATE ${OUTPUT_FILE})
 

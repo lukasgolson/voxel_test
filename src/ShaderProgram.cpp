@@ -91,11 +91,8 @@ GLuint ShaderProgram::LoadShaders(const std::string &shaderName) {
 
 
 
-    auto vertexShaderCode = LoadShaderFile( shaderName, "Vertex");
-    auto fragmentShaderCode = LoadShaderFile( shaderName, "Fragment");
-
-    //std::printf("Vertex shader code:\n%s\n", vertexShaderCode.c_str());
-
+    auto vertexShaderCode = LoadShaderFile( shaderName, ShaderType::Vertex);
+    auto fragmentShaderCode = LoadShaderFile( shaderName, ShaderType::Fragment);
 
     GLuint program = glCreateProgram();
 
