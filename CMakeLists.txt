@@ -72,7 +72,7 @@ add_executable(main main.cpp
 
 
 pybind11_add_module(pythonModule python/Example.cpp)
-add_dependencies(pythonModule main)
+
 
 
 # Only proceed if building on Windows
@@ -131,6 +131,10 @@ target_link_libraries(main PRIVATE glfw)
 target_link_libraries(main PRIVATE glm::glm)
 target_link_libraries(main PRIVATE glad)
 
+target_link_libraries(pythonModule PRIVATE glfw)
+target_link_libraries(pythonModule PRIVATE glm::glm)
+target_link_libraries(pythonModule PRIVATE glad)
+
 # Set optimizations
 if(MSVC)
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
@@ -150,4 +154,10 @@ target_sources(main PRIVATE ${OUTPUT_FILE})
 
 
 
+
+# Retrieve source files from main
+get_target_property(MAIN_SOURCES main SOURCES)
+
+# Add the source files to the python module
+target_sources(pythonModule PRIVATE ${MAIN_SOURCES})
 
