@@ -55,3 +55,4 @@ CMakeUserPresets/
 
 # Ignore macOS system files
 .DS_Store
+/generated/

@@ -19,9 +19,9 @@ public:
 private:
     void SetUniforms();
 
-    static GLuint LoadShaders(const std::string &shaderDir, const std::string &shaderName);
+    static GLuint LoadShaders(const std::string &shaderName);
 
-    static std::string LoadShaderFile(const std::string &filePath);
+    static std::string LoadShaderFile(const std::string &shaderName, const std::string &shaderType);
 
     static GLuint CompileShader(GLenum shaderType, const std::string &shaderCode);
 

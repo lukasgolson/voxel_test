@@ -4,6 +4,8 @@ project(voxel_test)
 set(CMAKE_CXX_STANDARD 17)
 
 
+include("${CMAKE_CURRENT_SOURCE_DIR}/generate_shader_loader.cmake")
+
 
 find_package(OpenGL REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
@@ -14,6 +16,8 @@ find_package(Python 3.6 COMPONENTS Interpreter Development REQUIRED)
 find_package(pybind11 CONFIG REQUIRED)
 
 add_subdirectory(dependencies/glad)
+
+
 
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "GLFW lib only")
@@ -68,7 +72,7 @@ pybind11_add_module(pythonModule python/Example.cpp)
 # Only proceed if building on Windows
 if(WIN32)
     # Set the main target to be a Windows GUI application
-    set_target_properties(main PROPERTIES WIN32_EXECUTABLE TRUE)
+    set_target_properties(main PROPERTIES WIN32_EXECUTABLE FALSE)
 
     # Define variables for resource file paths
     set(RESOURCE_FILE ${CMAKE_SOURCE_DIR}/main.rc)
@@ -138,5 +142,17 @@ add_custom_target(CopyShaders
         DEPENDS ${SHADERS_DIR}
 )
 
+add_custom_target(
+        RegenerateShaderLoader ALL
+        COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_SOURCE_DIR}/generate_shader_loader.cmake
+        COMMENT "Regenerating Shader Loader"
+)
+
 # Make MyApp depend on CopyShaders, so it's copied before building MyApp
 add_dependencies(main CopyShaders)
+add_dependencies(main RegenerateShaderLoader)
+target_sources(main PRIVATE ${OUTPUT_FILE})
+
+
+
+
