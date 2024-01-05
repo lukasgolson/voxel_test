@@ -8,10 +8,12 @@
 
 
 
-VoxelWindow::VoxelWindow(int resolutionX, int resolutionY, RGBA backgroundColor) {
+VoxelWindow::VoxelWindow(const int resolutionX, const int resolutionY, const RGBA backgroundColor) {
 
-    WindowManager windowManager;
-    window = windowManager.createWindow(resolutionX, resolutionY);
+    windowManager = std::make_unique<WindowManager>();
+    window = windowManager->createWindow(resolutionX, resolutionY);
+
+
     voxelEngine = std::make_unique<VoxelEngine>();
 
     BackgroundColor = backgroundColor;
@@ -22,7 +24,14 @@ VoxelWindow::~VoxelWindow() {
     glfwTerminate();
 }
 
-void VoxelWindow::Refresh() {
+void VoxelWindow::Update() {
+
+    if (glfwWindowShouldClose(window)) {
+        // print some error message
+        std::printf("Window closed\n");
+        return;
+    }
+
     // Clear the color buffer
     glClearColor(BackgroundColor.red, BackgroundColor.green, BackgroundColor.blue, BackgroundColor.alpha);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -8,20 +8,26 @@
 #include "GLFW/glfw3.h"
 #include "../VoxelEngine.h"
 #include "../types/Rgba.h"
+#include "../WindowManager.h"
 
 
 class VoxelWindow {
+    std::unique_ptr<WindowManager> windowManager;
+
+
     GLFWwindow *window;
     std::unique_ptr<VoxelEngine> voxelEngine;
 
-    VoxelWindow(int resolutionX, int resolutionY, RGBA backgroundColor = RGBA(0.15, 0.10, 0.10, 1.0));
+
+    public: VoxelWindow(const int resolutionX, const int resolutionY, const RGBA backgroundColor = RGBA(0.15, 0.10, 0.10, 1.0));
 
     ~VoxelWindow();
 
-    void Refresh();
+    void Update();
 
     bool ShouldClose();
 
     RGBA BackgroundColor;
+
 };
 

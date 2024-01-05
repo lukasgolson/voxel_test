@@ -3,6 +3,11 @@
 #include "glad/gl.h"
 
 WindowManager::WindowManager() {
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
     if (!glfwInit()) {
         throw std::runtime_error("Failed to initialize GLFW");
     }
@@ -17,9 +22,7 @@ WindowManager::~WindowManager() {
 }
 
 GLFWwindow* WindowManager::createWindow(int width, int height, const char* title) {
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 
     window = glfwCreateWindow(width, height, title, nullptr, nullptr);
     if (!window) {
@@ -44,7 +47,7 @@ GLFWwindow* WindowManager::createWindow(int width, int height, const char* title
 }
 
 void WindowManager::errorCallback(int error, const char* description) {
-    std::cerr << "Error: " << description << std::endl;
+    std::cerr << "Error " << error << ": "<< description << std::endl;
 }
 
 void WindowManager::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
