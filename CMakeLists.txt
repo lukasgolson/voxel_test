@@ -7,8 +7,8 @@ set(CMAKE_CXX_STANDARD 17)
 include("${CMAKE_CURRENT_SOURCE_DIR}/generate_shader_loader.cmake")
 
 
+
 find_package(OpenGL REQUIRED)
-find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
 # Python bindings
@@ -18,10 +18,14 @@ find_package(pybind11 CONFIG REQUIRED)
 add_subdirectory(dependencies/glad)
 
 
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+add_subdirectory(dependencies/glfw)
 
 
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "GLFW lib only")
-set(GLFW_INSTALL OFF CACHE BOOL "GLFW lib only")
+
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-libgcc -static-libstdc++")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
@@ -68,6 +72,7 @@ add_executable(main main.cpp
 
 
 pybind11_add_module(pythonModule python/Example.cpp)
+add_dependencies(pythonModule main)
 
 
 # Only proceed if building on Windows
@@ -82,44 +87,49 @@ if(WIN32)
     # Find the windres program used for compiling resource files
     find_program(WINDRES_EXECUTABLE NAMES windres)
     if(NOT WINDRES_EXECUTABLE)
-        message(FATAL_ERROR "windres not found")
+        message(WARNING "windres not found")
+
+    else()
+        message(STATUS "windres found: ${WINDRES_EXECUTABLE}")
+
+        # Custom command to compile the resource file
+        add_custom_command(
+                OUTPUT ${RESOURCE_OBJECT}
+                COMMAND ${WINDRES_EXECUTABLE} -i ${RESOURCE_FILE} -o ${RESOURCE_OBJECT}
+                DEPENDS ${RESOURCE_FILE}
+                COMMENT "Compiling resource file ${RESOURCE_FILE}"
+        )
+
+        # Custom target to manage the resource file compilation
+        add_custom_target(
+                GenerateMainRC
+                DEPENDS ${RESOURCE_OBJECT}
+                COMMENT "Generating resource object file"
+        )
+
+        # Ensure the main target depends on the custom target
+        add_dependencies(main GenerateMainRC)
+
+        # Link the compiled resource object file with the main target
+        target_link_libraries(main PRIVATE ${RESOURCE_OBJECT})
     endif()
 
-    # Custom command to compile the resource file
-    add_custom_command(
-            OUTPUT ${RESOURCE_OBJECT}
-            COMMAND ${WINDRES_EXECUTABLE} -i ${RESOURCE_FILE} -o ${RESOURCE_OBJECT}
-            DEPENDS ${RESOURCE_FILE}
-            COMMENT "Compiling resource file ${RESOURCE_FILE}"
+
+endif()
+
+if(MSVC)
+    add_compile_options(
+            $<$<CONFIG:>:/MT> #---------|
+            $<$<CONFIG:Debug>:/MTd> #---|-- Statically link the runtime libraries
+            $<$<CONFIG:Release>:/MT> #--|
     )
-
-
-
-    # Custom target to manage the resource file compilation
-    add_custom_target(
-            GenerateMainRC
-            DEPENDS ${RESOURCE_OBJECT}
-            COMMENT "Generating resource object file"
-    )
-
-    # Ensure the main target depends on the custom target
-    add_dependencies(main GenerateMainRC)
-
-    # Link the compiled resource object file with the main target
-    target_link_libraries(main PRIVATE ${RESOURCE_OBJECT})
 endif()
 
 
 set_target_properties(main PROPERTIES OUTPUT_NAME "voxel_engine")
-
-
 target_link_libraries(main PRIVATE glfw)
 target_link_libraries(main PRIVATE glm::glm)
 target_link_libraries(main PRIVATE glad)
-
-target_link_libraries(pythonModule PRIVATE glfw)
-target_link_libraries(pythonModule PRIVATE glm::glm)
-target_link_libraries(pythonModule PRIVATE glad)
 
 # Set optimizations
 if(MSVC)
@@ -135,7 +145,6 @@ add_custom_target(
         COMMENT "Regenerating Shader Loader"
 )
 
-# Make MyApp depend on CopyShaders, so it's copied before building MyApp
 add_dependencies(main RegenerateShaderLoader)
 target_sources(main PRIVATE ${OUTPUT_FILE})
 
