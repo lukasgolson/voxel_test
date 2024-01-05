@@ -12,7 +12,6 @@
 
 Scene::Scene(ShaderProgram *shaderProgram) {
     this->shaderProgram = shaderProgram;
-
     this->vw = new VoxelWorld();
 }
 

@@ -65,6 +65,10 @@ add_executable(main main.cpp
         src/types/Coordinate.h
         src/Helpers/ValueScaling.h
         src/Helpers/Color.h
+
+        src/WindowManager.h
+        src/WindowManager.cpp
+        src/WindowManager.h
         src/Enums/ShaderType.h
 )
 
