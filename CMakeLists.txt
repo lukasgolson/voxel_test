@@ -4,11 +4,28 @@ project(voxel_test)
 set(CMAKE_CXX_STANDARD 17)
 
 
+include("${CMAKE_CURRENT_SOURCE_DIR}/generate_shader_loader.cmake")
+
+
 
 find_package(OpenGL REQUIRED)
+find_package(glm CONFIG REQUIRED)
 
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "GLFW lib only")
-set(GLFW_INSTALL OFF CACHE BOOL "GLFW lib only")
+# Python bindings
+find_package(Python 3.6 COMPONENTS Interpreter Development REQUIRED)
+find_package(pybind11 CONFIG REQUIRED)
+
+add_subdirectory(dependencies/glad)
+
+
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+add_subdirectory(dependencies/glfw)
+
+
+
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static-libgcc -static-libstdc++")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
@@ -48,15 +65,24 @@ add_executable(main main.cpp
         src/types/Coordinate.h
         src/Helpers/ValueScaling.h
         src/Helpers/Color.h
+
         src/WindowManager.h
         src/WindowManager.cpp
         src/WindowManager.h
+        src/Enums/ShaderType.h
 )
+
+
+
+
+pybind11_add_module(pythonModule python/Example.cpp)
+add_dependencies(pythonModule main)
+
 
 # Only proceed if building on Windows
 if(WIN32)
     # Set the main target to be a Windows GUI application
-    set_target_properties(main PROPERTIES WIN32_EXECUTABLE TRUE)
+    set_target_properties(main PROPERTIES WIN32_EXECUTABLE FALSE)
 
     # Define variables for resource file paths
     set(RESOURCE_FILE ${CMAKE_SOURCE_DIR}/main.rc)
@@ -65,44 +91,48 @@ if(WIN32)
     # Find the windres program used for compiling resource files
     find_program(WINDRES_EXECUTABLE NAMES windres)
     if(NOT WINDRES_EXECUTABLE)
-        message(FATAL_ERROR "windres not found")
+        message(WARNING "windres not found")
+
+    else()
+        message(STATUS "windres found: ${WINDRES_EXECUTABLE}")
+
+        # Custom command to compile the resource file
+        add_custom_command(
+                OUTPUT ${RESOURCE_OBJECT}
+                COMMAND ${WINDRES_EXECUTABLE} -i ${RESOURCE_FILE} -o ${RESOURCE_OBJECT}
+                DEPENDS ${RESOURCE_FILE}
+                COMMENT "Compiling resource file ${RESOURCE_FILE}"
+        )
+
+        # Custom target to manage the resource file compilation
+        add_custom_target(
+                GenerateMainRC
+                DEPENDS ${RESOURCE_OBJECT}
+                COMMENT "Generating resource object file"
+        )
+
+        # Ensure the main target depends on the custom target
+        add_dependencies(main GenerateMainRC)
+
+        # Link the compiled resource object file with the main target
+        target_link_libraries(main PRIVATE ${RESOURCE_OBJECT})
     endif()
 
-    # Custom command to compile the resource file
-    add_custom_command(
-            OUTPUT ${RESOURCE_OBJECT}
-            COMMAND ${WINDRES_EXECUTABLE} -i ${RESOURCE_FILE} -o ${RESOURCE_OBJECT}
-            DEPENDS ${RESOURCE_FILE}
-            COMMENT "Compiling resource file ${RESOURCE_FILE}"
+
+endif()
+
+if(MSVC)
+    add_compile_options(
+            $<$<CONFIG:>:/MT> #---------|
+            $<$<CONFIG:Debug>:/MTd> #---|-- Statically link the runtime libraries
+            $<$<CONFIG:Release>:/MT> #--|
     )
-
-
-
-    # Custom target to manage the resource file compilation
-    add_custom_target(
-            GenerateMainRC
-            DEPENDS ${RESOURCE_OBJECT}
-            COMMENT "Generating resource object file"
-    )
-
-    # Ensure the main target depends on the custom target
-    add_dependencies(main GenerateMainRC)
-
-    # Link the compiled resource object file with the main target
-    target_link_libraries(main PRIVATE ${RESOURCE_OBJECT})
 endif()
 
 
 set_target_properties(main PROPERTIES OUTPUT_NAME "voxel_engine")
-
-
-find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glfw)
-
-find_package(glm CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glm::glm)
-
-add_subdirectory(dependencies/glad)
 target_link_libraries(main PRIVATE glad)
 
 # Set optimizations
@@ -113,19 +143,15 @@ else()
 endif()
 
 
-
-# Specify the shaders directory
-set(SHADERS_DIR ${CMAKE_SOURCE_DIR}/shaders)
-set(SHADERS_DEST_DIR ${CMAKE_BINARY_DIR}/shaders)
-
-# Copy the shaders directory to the build directory initially
-file(COPY ${SHADERS_DIR} DESTINATION ${SHADERS_DEST_DIR})
-
-# Create a custom target to copy shaders when they change
-add_custom_target(CopyShaders
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${SHADERS_DIR} ${SHADERS_DEST_DIR}
-        DEPENDS ${SHADERS_DIR}
+add_custom_target(
+        RegenerateShaderLoader ALL
+        COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/generate_shader_loader.cmake
+        COMMENT "Regenerating Shader Loader"
 )
 
-# Make MyApp depend on CopyShaders, so it's copied before building MyApp
-add_dependencies(main CopyShaders)
+add_dependencies(main RegenerateShaderLoader)
+target_sources(main PRIVATE ${OUTPUT_FILE})
+
+
+
+

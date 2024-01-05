@@ -1,11 +1,9 @@
 {
+  "$schema" : "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
   "name" : "voxel-test",
   "version-string" : "1.0.0",
   "builtin-baseline" : "e3b4728c3e1c390194bcff1b1def88685af6ea2e",
   "dependencies" : [ {
-    "name" : "glfw3",
-    "version>=" : "3.3.9"
-  }, {
     "name" : "glm",
     "version>=" : "0.9.9.8#2"
   }, {
@@ -14,5 +12,8 @@
   }, {
     "name" : "vcpkg-cmake",
     "version>=" : "2023-05-04"
+  }, {
+    "name" : "pybind11",
+    "version>=" : "2.11.1"
   } ]
 }

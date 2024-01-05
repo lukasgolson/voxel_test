@@ -10,7 +10,7 @@
 
 ShaderProgram::ShaderProgram(const std::string &shaderDir, const std::string &shaderName, Camera *camera) {
     std::printf("Loading shader %s from %s\n", shaderName.c_str(), shaderDir.c_str());
-    this->program = ShaderProgram::LoadShaders(shaderDir, shaderName);
+    this->program = ShaderProgram::LoadShaders(shaderName);
     this->camera = camera;
 }
 
@@ -31,12 +31,6 @@ void ShaderProgram::Update() {
 void ShaderProgram::SetUniforms() {
 
 
-
-
-
-
-
-
     this->SetUniform("m_projection", this->camera->GetProjectionMatrix());
     this->SetUniform("m_view", this->camera->GetViewMatrix());
     this->SetUniform("m_model", glm::mat4(1.0f));
@@ -55,7 +49,7 @@ auto ShaderProgram::GetUniformLocation(const std::string &name) const -> GLint {
     return glGetUniformLocation(this->program, name.c_str());
 }
 
-std::string ShaderProgram::LoadShaderFile(const std::string &filePath) {
+/*std::string ShaderProgram::LoadShaderFile(const std::string &filePath) {
     std::string shaderCode;
     std::ifstream shaderFile(filePath);
 
@@ -70,7 +64,7 @@ std::string ShaderProgram::LoadShaderFile(const std::string &filePath) {
 
     shaderFile.close();
     return shaderCode;
-}
+}*/
 
 GLuint ShaderProgram::CompileShader(GLenum shaderType, const std::string &shaderCode) {
     GLuint shader = glCreateShader(shaderType);
@@ -93,14 +87,12 @@ GLuint ShaderProgram::CompileShader(GLenum shaderType, const std::string &shader
 }
 
 
-GLuint ShaderProgram::LoadShaders(const std::string &shaderDir, const std::string &shaderName) {
-    std::string vertexShaderPath = shaderDir + "/" + shaderName + ".vert";
-    std::string fragmentShaderPath = shaderDir + "/" + shaderName + ".frag";
+GLuint ShaderProgram::LoadShaders(const std::string &shaderName) {
 
 
-    auto vertexShaderCode = LoadShaderFile(vertexShaderPath);
-    auto fragmentShaderCode = LoadShaderFile(fragmentShaderPath);
 
+    auto vertexShaderCode = LoadShaderFile( shaderName, ShaderType::Vertex);
+    auto fragmentShaderCode = LoadShaderFile( shaderName, ShaderType::Fragment);
 
     GLuint program = glCreateProgram();
 
