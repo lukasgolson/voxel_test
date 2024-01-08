@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "VoxelWorld.h"
-#include "ShaderProgram.h"
+#include "Rendering/ShaderProgram.h"
 
 
 
@@ -40,7 +40,7 @@ Coordinate VoxelWorld::GetChunkCoordinates(Coordinate worldCoords) {
     return chunkCoords;
 }
 
-void VoxelWorld::SetVoxel(Coordinate worldPos, Voxel type) {
+void VoxelWorld::SetVoxel(Coordinate worldPos, Voxel voxel) {
 
 
     auto chunkCoords = GetChunkCoordinates(worldPos);
@@ -50,9 +50,25 @@ void VoxelWorld::SetVoxel(Coordinate worldPos, Voxel type) {
     auto localCoords = Coordinate(worldPos.x - chunkCoords.x * CHUNK_SIZE, worldPos.y - chunkCoords.y * CHUNK_SIZE, worldPos.z - chunkCoords.z * CHUNK_SIZE);
 
 
-    chunks[chunkIndex].SetVoxel(localCoords, type);
+    chunks[chunkIndex].SetVoxel(localCoords, voxel);
 
 }
+
+
+Voxel VoxelWorld::GetVoxel(const Coordinate worldPos) {
+
+    auto chunkCoords = GetChunkCoordinates(worldPos);
+    auto chunkIndex = chunkCoords.GetFlatIndex(WORLD_SIZE);
+
+
+    auto localCoords = Coordinate(worldPos.x - chunkCoords.x * CHUNK_SIZE, worldPos.y - chunkCoords.y * CHUNK_SIZE, worldPos.z - chunkCoords.z * CHUNK_SIZE);
+
+
+    chunks[chunkIndex].GetVoxel(localCoords);
+
+    return Voxel();
+}
+
 
 
 void VoxelWorld::Render(ShaderProgram *shaderProgram) {
@@ -61,3 +77,4 @@ void VoxelWorld::Render(ShaderProgram *shaderProgram) {
         chunkMeshes[i].Render();
     }
 }
+

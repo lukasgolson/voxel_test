@@ -25,7 +25,7 @@ PYBIND11_MODULE(voxelTest, m) {
                             std::to_string(a.blue) + ">";
                  }
             )
-            .doc() = "RGB color";
+            .doc() = "RGB color. Values are 0-1.0.";
 
     py::class_<RGBA>(m, "RGBA")
             .def(py::init<const double, const double, const double, const double>())
@@ -39,7 +39,7 @@ PYBIND11_MODULE(voxelTest, m) {
                             std::to_string(a.blue) + " a:" + std::to_string(a.alpha) + ">";
                  }
             )
-            .doc() = "RGBA color";
+            .doc() = "RGBA color. Values are 0-1.0.";
 
     py::class_<HSV>(m, "HSV")
             .def(py::init<const double, const double, const double>())
@@ -55,10 +55,28 @@ PYBIND11_MODULE(voxelTest, m) {
             .doc() = "HSV color";
 
 
+    py::class_<Coordinate>(m, "coordinate")
+            .def(py::init<const int, const int, const int>())
+            .def_readwrite("x", &Coordinate::x)
+            .def_readwrite("y", &Coordinate::y)
+            .def_readwrite("z", &Coordinate::z)
+            .def("__repr__",
+                 [](const Coordinate &a) {
+                     return "<Coordinate x:" + std::to_string(a.x) + " y:" + std::to_string(a.y) + " z:" +
+                            std::to_string(a.z) + ">";
+                 }
+            )
+            .doc() = "Coordinate in 3D space. Values are integers.";
+
+
     py::class_<VoxelWindow>(m, "VoxelWindow")
-            .def(py::init<const int, const int, const RGBA>())
-            .def("update", &VoxelWindow::Update)
-            .def("ShouldClose", &VoxelWindow::ShouldClose)
+            .def(py::init<const int, const int, const RGBA>(), "Create a window with the given resolution and background color.")
+            .def(py::init<const int, const int>(), "Create a window with the given resolution and default background.")
+            .def("update", &VoxelWindow::Update, "Update the window / render the window. Call this in a loop every frame.")
+            .def("ShouldClose", &VoxelWindow::ShouldClose, "Returns true if the window should close. If true, you should stop calling update.")
+
+            .def("SetVoxel", &VoxelWindow::SetVoxel, "Set the voxel at the given coordinate to the given color.")
+            .def("GetVoxel", &VoxelWindow::GetVoxel, "Get the voxel color at the given coordinate.")
             .doc() = "Voxel Window Object; used to create a window and render voxels to it.";
 
 

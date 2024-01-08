@@ -7,9 +7,9 @@
 
 HSV::HSV(const RGB &rgb) {
 
-    float red = rgb.red / 255.0;
-    float green = rgb.green / 255.0;
-    float blue = rgb.blue / 255.0;
+    float red = rgb.red;
+    float green = rgb.green;
+    float blue = rgb.blue;
 
 
     float maxVal = std::max(red, std::max(green, blue));

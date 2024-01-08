@@ -4,12 +4,12 @@
 
 #include <stdexcept>
 #include "VoxelEngine.h"
-#include "FlyingCamera.h"
+#include "Camera/FlyingCamera.h"
 #include "Scene.h"
 
 VoxelEngine::VoxelEngine() {
 
-    this->camera = new FlyingCamera(glm::vec3{0.0f, 0.0f, 0.0f}, 0.0f, 0.0f);
+    this->camera = new FlyingCamera(glm::vec3{10.0f, 6.f, -4.0f}, -1312.93f, 8568.09f);
     this->shaderProgram = new ShaderProgram("shaders", "chunk", camera);
     this->scene = new Scene(this->shaderProgram);
 }
@@ -27,4 +27,21 @@ void VoxelEngine::update() {
     this->scene->Update();
 
 
+    // create a cube in the middle of the world
+/*
+    for (int i = 1; i < 11; i++) {
+        this->SetVoxel(Coordinate(i, 1, 1), Voxel(1, 1, 1, 1));
+    }*/
+
+
+}
+
+void VoxelEngine::SetVoxel(const Coordinate coordinate, const Voxel voxel) {
+
+    this->scene->vw->SetVoxel(coordinate, voxel);
+
+}
+
+Voxel VoxelEngine::GetVoxel(const Coordinate coordinate) {
+    return this->scene->vw->GetVoxel(coordinate);
 }

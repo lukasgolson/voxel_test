@@ -2,10 +2,10 @@
 
 
 #include <string>
-#include "Camera.h"
-#include "OpenGlCommon.h"
-#include "meshes/BaseMesh.h"
-#include "Enums/ShaderType.h"
+#include "../Camera/Camera.h"
+#include "../Helpers/OpenGlCommon.h"
+#include "../meshes/BaseMesh.h"
+#include "../Enums/ShaderType.h"
 
 
 class ShaderProgram {

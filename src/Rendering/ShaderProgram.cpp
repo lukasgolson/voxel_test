@@ -2,10 +2,10 @@
 #include <vector>
 #include <iostream>
 
-#include "OpenGlCommon.h"
+#include "../Helpers/OpenGlCommon.h"
 #include <glm/gtc/type_ptr.hpp>
 #include "ShaderProgram.h"
-#include "Camera.h"
+#include "../Camera/Camera.h"
 
 
 ShaderProgram::ShaderProgram(const std::string &shaderDir, const std::string &shaderName, Camera *camera) {

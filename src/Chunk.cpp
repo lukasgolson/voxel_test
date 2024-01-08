@@ -79,3 +79,7 @@ void Chunk::SetVoxel(Coordinate localCoord, Voxel type) {
     voxels[localCoord.GetFlatIndex(CHUNK_SIZE)] = type;
     this->Dirty = true;
 }
+
+Voxel Chunk::GetVoxel(Coordinate localCoord) {
+    return voxels[localCoord.GetFlatIndex(CHUNK_SIZE)];
+}

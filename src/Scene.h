@@ -8,7 +8,7 @@
 #include "meshes/ChunkMesh.h"
 #include "meshes/QuadMesh.h"
 #include "VoxelWorld.h"
-#include "ShaderProgram.h"
+#include "Rendering/ShaderProgram.h"
 
 
 class Scene {

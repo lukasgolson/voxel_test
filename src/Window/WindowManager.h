@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <GLFW/glfw3.h>
+#include "GLFW/glfw3.h"
 #include <stdexcept>
 
 class WindowManager {
@@ -9,7 +9,7 @@ public:
     WindowManager();
     ~WindowManager();
 
-    GLFWwindow* createWindow(int width, int height, const char* title = "Window");
+    GLFWwindow* createWindow(int width, int height, const char* title = "Voxel Test");
     static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 private:

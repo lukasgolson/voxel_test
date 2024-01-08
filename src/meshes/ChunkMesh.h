@@ -7,7 +7,7 @@
 
 #include <glm/ext/matrix_float4x4.hpp>
 #include "BaseMesh.h"
-#include "../Voxel.h"
+#include "../types/Voxel.h"
 #include "../VoxelVertex.h"
 #include "../Settings.h"
 #include "../Chunk.h"

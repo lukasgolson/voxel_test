@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Voxel.h"
+#include "types/Voxel.h"
 #include "Settings.h"
 #include "types/Coordinate.h"
 
@@ -36,4 +36,6 @@ public:
     Coordinate position = {0, 0, 0};
 
     void SetVoxel(Coordinate localCoord, Voxel type);
+
+    Voxel GetVoxel(Coordinate localCoord);
 };

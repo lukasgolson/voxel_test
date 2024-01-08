@@ -1,8 +1,8 @@
 #pragma once
 
 
-#include "Camera.h"
-#include "ShaderProgram.h"
+#include "Camera/Camera.h"
+#include "Rendering/ShaderProgram.h"
 #include "Scene.h"
 
 class VoxelEngine {
@@ -17,6 +17,9 @@ public:
 
     double deltaTime;
     double lastFrameTime;
+
+    void SetVoxel(const Coordinate coordinate, const Voxel voxel);
+    Voxel GetVoxel(const Coordinate coordinate);
 };
 
 

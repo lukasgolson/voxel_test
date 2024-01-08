@@ -7,7 +7,7 @@
 
 #include "Chunk.h"
 #include "meshes/ChunkMesh.h"
-#include "ShaderProgram.h"
+#include "Rendering/ShaderProgram.h"
 
 
 class VoxelWorld {
@@ -24,7 +24,9 @@ public:
 
     void Render(ShaderProgram *shaderProgram);
 
-    void SetVoxel(Coordinate worldPos, Voxel type);
+    void SetVoxel(Coordinate worldPos, Voxel voxel);
 
     Coordinate GetChunkCoordinates(Coordinate worldCoords);
+
+    Voxel GetVoxel(const Coordinate worldPos);
 };

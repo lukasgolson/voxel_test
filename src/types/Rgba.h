@@ -15,7 +15,36 @@ struct RGBA {
 
     RGBA() : red(0), green(0), blue(0), alpha(0) {}
 
-    RGBA(const float r, const float g, const float b, const float a) : red(r), green(g), blue(b), alpha(a) {}
+    RGBA(const float r, const float g, const float b, const float a) : red(r), green(g), blue(b), alpha(a) {
+
+
+        bool error = false;
+
+        if (red > 1) {
+            red = 1;
+            error = true;
+        }
+
+        if (green > 1) {
+            green = 1;
+            error = true;
+        }
+
+        if (blue > 1) {
+            blue = 1;
+            error = true;
+        }
+
+        if (alpha > 1) {
+            alpha = 1;
+            error = true;
+        }
+
+        if (error) {
+            throw std::runtime_error("RGBA values must be between 0 and 1");
+        }
+
+    }
 
     RGBA(const RGB& rgb, const float alpha = 1.0);
 

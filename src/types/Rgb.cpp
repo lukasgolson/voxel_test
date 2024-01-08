@@ -3,9 +3,11 @@
 //
 
 #include "Rgb.h"
+#include "Rgba.h"
 
 RGB::operator RGBA() const {
-    return {red, green, blue, 1.0};
+
+    return { red, green, blue, 1.0};
 }
 
 RGB::RGB(const RGBA &rgba) {

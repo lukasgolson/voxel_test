@@ -5,15 +5,14 @@
 #pragma once
 
 
-
 #include "Camera.h"
-#include "VoxelEngine.h"
+#include "../VoxelEngine.h"
 
 class FlyingCamera : public Camera {
     void update(double delta_time) override;
 
 public:
-    FlyingCamera(glm::vec3 position, float pitch, float yaw) : Camera(position, pitch, yaw) {}
+    FlyingCamera(glm::vec3 position, float pitch, float yaw) : Camera(position, yaw, pitch) {}
 
     void keyboardInput(double deltaTime);
 

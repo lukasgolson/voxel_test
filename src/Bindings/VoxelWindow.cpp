@@ -4,7 +4,7 @@
 
 #include <memory>
 #include "VoxelWindow.h"
-#include "../WindowManager.h"
+#include "../Window/WindowManager.h"
 
 
 
@@ -46,4 +46,21 @@ void VoxelWindow::Update() {
 
 bool VoxelWindow::ShouldClose() {
     return glfwWindowShouldClose(window);
+}
+
+
+void VoxelWindow::SetVoxel(const Coordinate coordinate, const RGBA color){
+    voxelEngine->SetVoxel(coordinate, Voxel(color));
+}
+
+RGBA VoxelWindow::GetVoxel(const Coordinate coordinate) {
+
+   Voxel voxel =  voxelEngine->GetVoxel(coordinate);
+
+   float red = voxel.red / 255.0f;
+    float green = voxel.green / 255.0f;
+    float blue = voxel.blue / 255.0f;
+    float alpha = voxel.alpha / 255.0f;
+
+    return {red, green, blue, alpha};
 }

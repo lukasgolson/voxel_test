@@ -35,14 +35,14 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -lpthread -static-
 add_definitions(-DGLFW_INCLUDE_NONE)
 
 add_executable(main main.cpp
-        src/ShaderProgram.cpp
-        src/ShaderProgram.h
-        src/Camera.cpp
-        src/Camera.h
+        src/Rendering/ShaderProgram.cpp
+        src/Rendering/ShaderProgram.h
+        src/Camera/Camera.cpp
+        src/Camera/Camera.h
         src/VoxelEngine.cpp
         src/VoxelEngine.h
-        src/FlyingCamera.cpp
-        src/FlyingCamera.h
+        src/Camera/FlyingCamera.cpp
+        src/Camera/FlyingCamera.h
         src/meshes/BaseMesh.cpp
         src/meshes/BaseMesh.h
         src/meshes/QuadMesh.cpp
@@ -51,23 +51,22 @@ add_executable(main main.cpp
         src/Scene.h
         src/meshes/QuadMesh.cpp
         src/meshes/QuadMesh.h
-        src/OpenGlCommon.h
+        src/Helpers/OpenGlCommon.h
         src/meshes/ChunkMesh.cpp
         src/meshes/ChunkMesh.h
         src/Chunk.cpp
         src/Chunk.h
-        src/Voxel.h
+        src/types/Voxel.h
         src/VoxelVertex.h
-        src/Settings.cpp
         src/Settings.h
         src/VoxelWorld.cpp
         src/VoxelWorld.h
         src/types/Coordinate.h
         src/Helpers/ValueScaling.h
 
-        src/WindowManager.h
-        src/WindowManager.cpp
-        src/WindowManager.h
+        src/Window/WindowManager.h
+        src/Window/WindowManager.cpp
+        src/Window/WindowManager.h
         src/Enums/ShaderType.h
         src/Bindings/VoxelWindow.cpp
         src/Bindings/VoxelWindow.h
@@ -77,6 +76,8 @@ add_executable(main main.cpp
         src/types/Rgba.h
         src/types/Hsv.cpp
         src/types/Hsv.h
+        src/types/Coordinate.cpp
+        src/types/Voxel.cpp
 )
 
 

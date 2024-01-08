@@ -8,7 +8,7 @@
 #include "GLFW/glfw3.h"
 #include "../VoxelEngine.h"
 #include "../types/Rgba.h"
-#include "../WindowManager.h"
+#include "../Window/WindowManager.h"
 
 
 class VoxelWindow {
@@ -29,5 +29,10 @@ class VoxelWindow {
 
     RGBA BackgroundColor;
 
+
+
+    void SetVoxel(const Coordinate coordinate, const RGBA color);
+
+    RGBA GetVoxel(const Coordinate coordinate);
 };
 
