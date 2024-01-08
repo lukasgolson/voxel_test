@@ -7,11 +7,11 @@
 #include "Camera/FlyingCamera.h"
 #include "Scene.h"
 
-VoxelEngine::VoxelEngine() {
+VoxelEngine::VoxelEngine(int worldSize, int chunkSize) {
 
     this->camera = new FlyingCamera(glm::vec3{10.0f, 6.f, -4.0f}, -1312.93f, 8568.09f);
     this->shaderProgram = new ShaderProgram("shaders", "chunk", camera);
-    this->scene = new Scene(this->shaderProgram);
+    this->scene = new Scene(this->shaderProgram, worldSize, chunkSize);
 }
 
 
@@ -38,10 +38,10 @@ void VoxelEngine::update() {
 
 void VoxelEngine::SetVoxel(const Coordinate coordinate, const Voxel voxel) {
 
-    this->scene->vw->SetVoxel(coordinate, voxel);
+    this->scene->voxelWorld->SetVoxel(coordinate, voxel);
 
 }
 
 Voxel VoxelEngine::GetVoxel(const Coordinate coordinate) {
-    return this->scene->vw->GetVoxel(coordinate);
+    return this->scene->voxelWorld->GetVoxel(coordinate);
 }

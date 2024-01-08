@@ -70,8 +70,8 @@ PYBIND11_MODULE(voxelTest, m) {
 
 
     py::class_<VoxelWindow>(m, "VoxelWindow")
-            .def(py::init<const int, const int, const RGBA>(), "Create a window with the given resolution and background color.")
-            .def(py::init<const int, const int>(), "Create a window with the given resolution and default background.")
+            .def(py::init<int,int,const int, const int, const RGBA>(), "Create a window with the given resolution and background color.")
+            .def(py::init<int,int,const int, const int>(), "Create a window with the given resolution and default background color.")
             .def("update", &VoxelWindow::Update, "Update the window / render the window. Call this in a loop every frame.")
             .def("ShouldClose", &VoxelWindow::ShouldClose, "Returns true if the window should close. If true, you should stop calling update.")
 

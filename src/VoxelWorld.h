@@ -17,10 +17,10 @@ class VoxelWorld {
 
 
 public:
-    VoxelWorld();
+    VoxelWorld(int worldSize, int chunkSize);
 
-    Chunk chunks[WORLD_VOLUME];
-    ChunkMesh chunkMeshes[WORLD_VOLUME];
+    Chunk* chunkArray;
+    ChunkMesh* chunkMeshArray;
 
     void Render(ShaderProgram *shaderProgram);
 
@@ -29,4 +29,8 @@ public:
     Coordinate GetChunkCoordinates(Coordinate worldCoords);
 
     Voxel GetVoxel(const Coordinate worldPos);
+
+    int worldSize;
+    int worldVolume;
+    int chunkSize;
 };

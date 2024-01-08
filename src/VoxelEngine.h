@@ -11,7 +11,7 @@ class VoxelEngine {
     Scene *scene;
 
 public:
-    VoxelEngine();
+    VoxelEngine(int worldSize, int chunkSize);
     ~VoxelEngine() = default;
     void update();
 

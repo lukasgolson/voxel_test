@@ -6,9 +6,9 @@
 #include "Scene.h"
 #include "VoxelWorld.h"
 
-Scene::Scene(ShaderProgram *shaderProgram) {
+Scene::Scene(ShaderProgram *shaderProgram, int worldSize, int chunkSize) {
     this->shaderProgram = shaderProgram;
-    this->vw = new VoxelWorld();
+    this->voxelWorld = new VoxelWorld(worldSize, chunkSize);
 }
 
 void Scene::Update() {
@@ -19,5 +19,5 @@ void Scene::Render() {
     //  this->world->Render();
     //this->quadMesh->Render();
 
-    this->vw->Render(this->shaderProgram);
+    this->voxelWorld->Render(this->shaderProgram);
 }

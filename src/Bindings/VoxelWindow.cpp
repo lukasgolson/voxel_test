@@ -8,13 +8,13 @@
 
 
 
-VoxelWindow::VoxelWindow(const int resolutionX, const int resolutionY, const RGBA backgroundColor) {
+VoxelWindow::VoxelWindow(int worldSize, int chunkSize, const int resolutionX, const int resolutionY, const RGBA backgroundColor) {
 
     windowManager = std::make_unique<WindowManager>();
     window = windowManager->createWindow(resolutionX, resolutionY);
 
 
-    voxelEngine = std::make_unique<VoxelEngine>();
+    voxelEngine = std::make_unique<VoxelEngine>(worldSize, chunkSize);
 
     BackgroundColor = backgroundColor;
 

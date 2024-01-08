@@ -13,7 +13,7 @@
 
 class Scene {
 public:
-    Scene(ShaderProgram *shaderProgram);
+    Scene(ShaderProgram *shaderProgram, int worldSize, int chunkSize);
 
 
     void Update();
@@ -21,7 +21,7 @@ public:
     void Render();
 
     ShaderProgram *shaderProgram;
-    VoxelWorld *vw;
+    VoxelWorld *voxelWorld;
 
     Coordinate currentCoords = {0, 0, 0};
     Coordinate colorOffset = {0, 0, 0};

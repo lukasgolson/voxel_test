@@ -10,17 +10,24 @@
 
 
 
-VoxelWorld::VoxelWorld() {
+VoxelWorld::VoxelWorld(int worldSize, int chunkSize) {
 
-    for (int x = 0; x < WORLD_SIZE; x++) {
-        for (int y = 0; y < WORLD_SIZE; y++) {
-            for (int z = 0; z < WORLD_SIZE; z++) {
+    this->worldSize = worldSize;
+    this->worldVolume = worldSize * worldSize * worldSize;
+    this->chunkSize = chunkSize;
 
-                auto index = Coordinate(x, y, z).GetFlatIndex(WORLD_SIZE);
+    this->chunkArray = new Chunk[worldVolume];
+    this->chunkMeshArray = new ChunkMesh[worldVolume];
 
-                chunkMeshes[index].AssociateChunk(&chunks[index]);
-                chunks[index].position = {x, y, z};
-               // chunks[index].BuildVoxels();
+    for (int x = 0; x < worldSize; x++) {
+        for (int y = 0; y < worldSize; y++) {
+            for (int z = 0; z < worldSize; z++) {
+
+                auto index = Coordinate(x, y, z).GetFlatIndex(worldSize);
+
+                chunkMeshArray[index].AssociateChunk(&chunkArray[index]);
+                chunkArray[index].position = {x, y, z};
+               // chunkArray[index].BuildVoxels();
 
             }
         }
@@ -44,13 +51,13 @@ void VoxelWorld::SetVoxel(Coordinate worldPos, Voxel voxel) {
 
 
     auto chunkCoords = GetChunkCoordinates(worldPos);
-    auto chunkIndex = chunkCoords.GetFlatIndex(WORLD_SIZE);
+    auto chunkIndex = chunkCoords.GetFlatIndex(this->worldSize);
 
 
     auto localCoords = Coordinate(worldPos.x - chunkCoords.x * CHUNK_SIZE, worldPos.y - chunkCoords.y * CHUNK_SIZE, worldPos.z - chunkCoords.z * CHUNK_SIZE);
 
 
-    chunks[chunkIndex].SetVoxel(localCoords, voxel);
+    chunkArray[chunkIndex].SetVoxel(localCoords, voxel);
 
 }
 
@@ -58,13 +65,13 @@ void VoxelWorld::SetVoxel(Coordinate worldPos, Voxel voxel) {
 Voxel VoxelWorld::GetVoxel(const Coordinate worldPos) {
 
     auto chunkCoords = GetChunkCoordinates(worldPos);
-    auto chunkIndex = chunkCoords.GetFlatIndex(WORLD_SIZE);
+    auto chunkIndex = chunkCoords.GetFlatIndex(this->worldSize);
 
 
     auto localCoords = Coordinate(worldPos.x - chunkCoords.x * CHUNK_SIZE, worldPos.y - chunkCoords.y * CHUNK_SIZE, worldPos.z - chunkCoords.z * CHUNK_SIZE);
 
 
-    chunks[chunkIndex].GetVoxel(localCoords);
+    chunkArray[chunkIndex].GetVoxel(localCoords);
 
     return Voxel();
 }
@@ -72,9 +79,9 @@ Voxel VoxelWorld::GetVoxel(const Coordinate worldPos) {
 
 
 void VoxelWorld::Render(ShaderProgram *shaderProgram) {
-    for (int i = 0; i < WORLD_VOLUME; i++) {
-        shaderProgram->SetModelMatrix(chunkMeshes[i].GetModelMatrix());
-        chunkMeshes[i].Render();
+    for (int i = 0; i < this->worldVolume; i++) {
+        shaderProgram->SetModelMatrix(chunkMeshArray[i].GetModelMatrix());
+        chunkMeshArray[i].Render();
     }
 }
 

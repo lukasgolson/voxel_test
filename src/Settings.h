@@ -11,4 +11,4 @@ constexpr int CHUNK_AREA = CHUNK_SIZE * CHUNK_SIZE;
 constexpr int CHUNK_VOLUME = CHUNK_AREA * CHUNK_SIZE;
 
 constexpr int WORLD_SIZE = 4;
-constexpr int WORLD_VOLUME = WORLD_SIZE * WORLD_SIZE * WORLD_SIZE;
+constexpr int WORLD_VOLUME = 4 * 4 * 4;

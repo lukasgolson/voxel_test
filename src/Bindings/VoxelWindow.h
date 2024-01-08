@@ -19,7 +19,7 @@ class VoxelWindow {
     std::unique_ptr<VoxelEngine> voxelEngine;
 
 
-    public: VoxelWindow(const int resolutionX, const int resolutionY, const RGBA backgroundColor = RGBA(0.15, 0.10, 0.10, 1.0));
+    public: VoxelWindow(int worldSize, int chunkSize, const int resolutionX, const int resolutionY, const RGBA backgroundColor = RGBA(0.15, 0.10, 0.10, 1.0));
 
     ~VoxelWindow();
 
