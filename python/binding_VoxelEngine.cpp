@@ -69,7 +69,7 @@ PYBIND11_MODULE(voxelTest, m) {
             .doc() = "Coordinate in 3D space. Values are integers.";
 
 
-    py::class_<VoxelWindow>(m, "voxelWindow")
+    py::class_<VoxelWindow>(m, "voxelWindow", py::dynamic_attr())
             .def(py::init<int, int, const int, const int, const RGBA>(),
                  "Create a window with the given resolution and background color.")
             .def("update", &VoxelWindow::Update,
