@@ -12,7 +12,7 @@ file(REMOVE ${OUTPUT_FILE})
 # Start writing the generated file
 file(WRITE ${OUTPUT_FILE} "#include <string>\n\n")
 file(WRITE ${OUTPUT_FILE} "#include <stdexcept>\n\n")
-file(APPEND ${OUTPUT_FILE} "#include \"../src/ShaderProgram.h\"\n\n")
+file(APPEND ${OUTPUT_FILE} "#include \"../src/Rendering/ShaderProgram.h\"\n\n")
 
 
 

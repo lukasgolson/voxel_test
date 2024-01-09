@@ -8,7 +8,7 @@
 
 int main() {
 
-    VoxelWindow voxelWindow(32,16,800, 600, RGBA(0, 0, 0, 1));
+    VoxelWindow voxelWindow(4,64,800, 600, RGBA(0, 0, 0, 1));
 
 
     while (!voxelWindow.ShouldClose()) {

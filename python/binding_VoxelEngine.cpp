@@ -13,7 +13,7 @@ namespace py = pybind11;
 PYBIND11_MODULE(voxelTest, m) {
     m.doc() = "VoxelTest Python Binding";
 
-    py::class_<RGB>(m, "RGB")
+    py::class_<RGB>(m, "rgb")
             .def(py::init<const double, const double, const double>())
             .def_readwrite("red", &RGB::red)
             .def_readwrite("g", &RGB::green)
@@ -27,7 +27,7 @@ PYBIND11_MODULE(voxelTest, m) {
             )
             .doc() = "RGB color. Values are 0-1.0.";
 
-    py::class_<RGBA>(m, "RGBA")
+    py::class_<RGBA>(m, "rgba")
             .def(py::init<const double, const double, const double, const double>())
             .def_readwrite("red", &RGBA::red)
             .def_readwrite("g", &RGBA::green)
@@ -41,7 +41,7 @@ PYBIND11_MODULE(voxelTest, m) {
             )
             .doc() = "RGBA color. Values are 0-1.0.";
 
-    py::class_<HSV>(m, "HSV")
+    py::class_<HSV>(m, "hsv")
             .def(py::init<const double, const double, const double>())
             .def_readwrite("h", &HSV::hue)
             .def_readwrite("s", &HSV::saturation)
@@ -69,17 +69,17 @@ PYBIND11_MODULE(voxelTest, m) {
             .doc() = "Coordinate in 3D space. Values are integers.";
 
 
-    py::class_<VoxelWindow>(m, "VoxelWindow")
-            .def(py::init<int,int,const int, const int, const RGBA>(), "Create a window with the given resolution and background color.")
-            .def(py::init<int,int,const int, const int>(), "Create a window with the given resolution and default background color.")
-            .def("update", &VoxelWindow::Update, "Update the window / render the window. Call this in a loop every frame.")
-            .def("ShouldClose", &VoxelWindow::ShouldClose, "Returns true if the window should close. If true, you should stop calling update.")
+    py::class_<VoxelWindow>(m, "voxelWindow")
+            .def(py::init<int, int, const int, const int, const RGBA>(),
+                 "Create a window with the given resolution and background color.")
+            .def("update", &VoxelWindow::Update,
+                 "Update the window / render the window. Call this in a loop every frame.")
+            .def("ShouldClose", &VoxelWindow::ShouldClose,
+                 "Returns true if the window should close. If true, you should stop calling update.")
 
             .def("SetVoxel", &VoxelWindow::SetVoxel, "Set the voxel at the given coordinate to the given color.")
             .def("GetVoxel", &VoxelWindow::GetVoxel, "Get the voxel color at the given coordinate.")
             .doc() = "Voxel Window Object; used to create a window and render voxels to it.";
-
-
 
 
 }
